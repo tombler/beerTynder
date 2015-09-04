@@ -11,17 +11,23 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
 })
 
-.controller('ExploreCtrl', function($scope, $stateParams){
+.controller('ExploreCtrl', function($scope, $stateParams, $http){
 
   console.log("hello");
-  $http.get('http://localhost:1337/api.brewerydb.com/v2/beer/random/?key=124796ba126c92f04f87e154a597c112&format=json/hasLabels=Y').
-  then(function(response) {
-    console.log(response);
-    $scope.beer = response;
-    // this callback will be called asynchronously
-    // when the response is available
-  }, function(response) {
-    console.log(response)
+  $http.get("http://localhost:1337/api.brewerydb.com/v2/beer/random/?key=124796ba126c92f04f87e154a597c112&format=json&hasLabels=Y").
+  then(function(data) {
+    var beer = {
+      name: data.data.data.name,
+      img: data.data.data.labels.medium,
+      abv: data.data.data.abv,
+      shortDescript: data.data.data.shortName,
+      descript: data.data.data.style.description
+    }
+    console.log("data :", data);
+    console.log("beer :", beer);
+    $scope.beer = beer;
+  }, function(data) {
+    console.log(data)
     // called asynchronously if an error occurs
     // or server returns response with an error status.
   });

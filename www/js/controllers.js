@@ -11,18 +11,28 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+//   $scope.chats = Chats.all();
+//   $scope.remove = function(chat) {
+//     Chats.remove(chat);
+//   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
+// .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+//   $scope.chat = Chats.get($stateParams.chatId);
+// })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});
+// .controller('AccountCtrl', function($scope) {
+//   $scope.settings = {
+//     enableFriends: true
+//   };
+// });
+
+.controller('WishlistCtrl', ['$scope', '$firebaseArray', '$stateParams', function($scope, $firebaseArray, $stateParams){
+  console.log("Yo");
+
+  var ref = new Firebase("https://beertynder.firebaseio.com/wishlist");
+
+    $scope.wishlist = $firebaseArray(ref);
+
+    console.log("$scope.wishlist", $scope.wishlist);
+}]);

@@ -1,0 +1,18 @@
+<ion-view view-title="BeerTynder">
+ <ion-content>
+   <ion-list>
+     <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="beer in myBeers" type="item-text-wrap" href="#/tab/user/home"> 
+     <!-- WHen MVP is done: route each href to tab/user/:beerId -->
+       <img src="{{beer.image}}" width="300px" alt="beer picture here">
+       <h2>{{beer.name}}</h2>
+       <i class="icon ion-chevron-right icon-accessory"></i>
+       <div>{{beer.genre}}</div>
+      <div>{{beer.description}}</div>
+      <div>IBUs: {{beer.ibu}}</div>
+      <div>ABV: {{beer.abv}}</div>
+      <div beer-rating rating-value="beer.rating" max="10" on-rating-selected="saveRatingToServer(rating)"></div>
+     </ion-item>
+   </ion-list>
+ </ion-content>
+</ion-view>
+

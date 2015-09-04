@@ -9,8 +9,11 @@ angular.module('starter.controllers', [])
   // listen for the $ionicView.enter event:
   //
   //$scope.$on('$ionicView.enter', function(e) {
-  //});
-.controller('ExploreCtrl' function($scope){
+})
+
+.controller('ExploreCtrl', function($scope, $stateParams){
+
+  console.log("hello");
   $http.get('http://localhost:1337/api.brewerydb.com/v2/beer/random/?key=124796ba126c92f04f87e154a597c112&format=json/hasLabels=Y').
   then(function(response) {
     console.log(response);
@@ -22,12 +25,6 @@ angular.module('starter.controllers', [])
     // called asynchronously if an error occurs
     // or server returns response with an error status.
   });
-})
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {

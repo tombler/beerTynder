@@ -14,11 +14,12 @@ angular.module('starter.controllers', [])
 .controller('ExploreCtrl', function($scope, $stateParams, $http){
 
   console.log("hello");
-  $http.get("http://localhost:1337/api.brewerydb.com/v2/beer/random/?key=124796ba126c92f04f87e154a597c112&format=json&hasLabels=Y").
+  $http.get("http://localhost:1337/api.brewerydb.com/v2/beer/random/?key=124796ba126c92f04f87e154a597c112&format=json&hasLabels=Y&withBreweries=Y").
   then(function(data) {
     var beer = {
       name: data.data.data.name,
       img: data.data.data.labels.medium,
+      company: data.data.data.breweries[0].name,
       abv: data.data.data.abv,
       shortDescript: data.data.data.shortName,
       descript: data.data.data.style.description

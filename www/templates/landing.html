@@ -10,8 +10,7 @@
       <div>{{beer.description}}</div>
       <div>IBUs: {{beer.ibu}}</div>
       <div>ABV: {{beer.abv}}</div>
-      <div>My Rating: {{beer.rating}}</div>
-      
+      <div beer-rating rating-value="beer.rating" max="10" on-rating-selected="saveRatingToServer(rating)"></div>
      </ion-item>
    </ion-list>
  </ion-content>

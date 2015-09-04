@@ -19,7 +19,9 @@ angular.module('starter.controllers', [])
 
 .controller('LandingCtrl', ['$scope', '$stateParams', '$firebaseArray', function($scope, $stateParams, $firebaseArray) {
   // console.log('hello');
-  
+  var ref = new Firebase('https://beertynder.firebaseio.com/myBeers');
+  $scope.myBeers = $firebaseArray(ref);
+  // console.log($scope.myBeers);
 }])
 
 .controller('AccountCtrl', function($scope) {

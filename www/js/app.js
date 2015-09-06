@@ -69,6 +69,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     });
 
-  // $urlRouterProvider.otherwise('/tab/user/home'); // 'tab/:userId/home'
+  $urlRouterProvider.otherwise('tab/user/home'); // 'tab/:userId/home'
 
 });

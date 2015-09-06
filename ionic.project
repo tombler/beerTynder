@@ -1,4 +1,10 @@
 {
   "name": "beerTynder",
-  "app_id": ""
+  "app_id": "132faa0d",
+  "proxies": [
+    {
+      "path": "/api.brewerydb.com/v2",
+      "proxyUrl": "http://localhost:1337/api.brewerydb.com/v2"
+    }
+  ]
 }

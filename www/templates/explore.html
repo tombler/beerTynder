@@ -1,7 +1,39 @@
-<h1>spacer</h1>
-<h1>{{beer.name}}</h1>
-<h2>{{beer.company}}</h2>
-<h4>{{beer.shortDescript}}</h4>
-<img ng-src="{{beer.img}}">
-<h3>{{beer.abv}}</h3>
-<p>{{beer.descript}}</p>
+<ion-view view-title="Explore Beers">
+    <div class="list card" on-swipe-right="saveToWishlist()" ng-click="saveToWishlist()">
+
+      <div class="item item-avatar">
+       <!--  <img src="mcfly.jpg"> -->
+        <h2>{{beer.name}}</h2>
+        <p>{{beer.brewery}}</p>
+        <p><strong>ABV: </strong>{{beer.abv}}</p>
+        <p><strong>Style: </strong>{{beer.style}}</p>
+      </div>
+
+      <div class="item item-body">
+        <img src="{{beer.labelMedium}}" width="200px"> <!-- class="full-image" -->
+        <p>
+          {{beer.description}}
+        </p>
+        <p>
+          <a href="#" class="subdued">Likes</a>
+          <a href="#" class="subdued">Comments</a>
+        </p>
+      </div>
+
+      <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item" href="#">
+          <i class="icon ion-thumbsup"></i>
+          Like
+        </a>
+        <a class="tab-item" href="#">
+          <i class="icon ion-chatbox"></i>
+          Comment
+        </a>
+        <a class="tab-item" href="#">
+          <i class="icon ion-share"></i>
+          Share
+        </a>
+      </div>
+
+    </div>
+</ion-view>

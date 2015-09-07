@@ -1,12 +1,14 @@
 <ion-modal-view>
     <ion-header-bar>
       <h1 class="title">Details</h1>
+      <button class="button" ng-click="modal.hide()">Close</button>
     </ion-header-bar>
     <ion-content>
 
       <div class="list card">
 
           <div class="item item-avatar">
+            
             <img src="{{beerDetail.labelIcon}}">
             <h2>{{beerDetail.name}}</h2>
             <p>{{beerDetail.brewery}}</p>
@@ -40,6 +42,9 @@
             <p>
                 <strong>Location: </strong>{{beerDetail.breweryLoc}}, {{beerDetail.breweryCountry}}
             </p>
+            <button class="button button-block button-positive" ng-disabled="isDisabled" ng-click="saveToMyBeers(beerDetail)">
+              {{addButtonText}}
+            </button>
           </div>
 
           <div class="item tabs tabs-secondary tabs-icon-left">

@@ -101,7 +101,7 @@ angular.module('starter.controllers', ['firebase'])
 .controller('WishlistCtrl', ['$scope', '$firebaseArray', '$stateParams', '$ionicModal', function($scope, $firebaseArray, $stateParams, $ionicModal){
   // console.log("Yo");
 
-  $scope.title = "YUP";
+  $scope.addButtonText = "Add To My Beers";
 
   var ref = new Firebase("https://beertynder.firebaseio.com/wishlist");
 
@@ -116,6 +116,9 @@ angular.module('starter.controllers', ['firebase'])
 
   $scope.seeBeerDetails = function (beer) {
     console.log(beer);
+    $scope.isDisabled = false;
+    $scope.addButtonText = "Add To My Beers";
+
     $scope.beerDetail = beer;
     $scope.modal.show();
   }
@@ -147,7 +150,23 @@ angular.module('starter.controllers', ['firebase'])
       // Execute action
     });
 
-  
+  $scope.saveToMyBeers = function (beerDetail) {
+    // console.log(beerDetail); 
+    $scope.wishlist.$remove(beerDetail)
+      .then(function (data) {
+        console.log("Removed beer from wishlist: ", data);
+      })
+
+    var ref = new Firebase("https://beertynder.firebaseio.com/myBeers");
+    $scope.myBeers = $firebaseArray(ref);
+    $scope.myBeers.$add(beerDetail)
+      .then(function (data) {
+        console.log("Beer added to myBeers: ", data);
+      })
+
+    $scope.isDisabled = true;
+    $scope.addButtonText = "Added";
+  }
 
   // Add a swipe-left function to remove beer from wishlist.
 

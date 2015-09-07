@@ -1,0 +1,28 @@
+<ion-view view-title="Log In">
+
+      
+  <div id="login" class="social-wrap a">
+    <a id="loginTitle" href="#/"><strong>FAKE-TEREST. </strong> <small>For your fake interests.</small></a>
+  <div class="logButtons">
+    <button ng-click="login('github')" id="github">Sign in with Github</button>
+    <button ng-click="login('facebook')" id="facebook">Sign in with Facebook</button>
+  </div>
+
+  <p ng-if="authData">Logged in user: <strong>{{ authData.uid }}</strong></p>
+  <p ng-if="error">Error: <strong>{{ error }}</strong></p>
+</div>
+
+<!--   <div ng-if="authData.facebook" class="list card">
+    <div class="item item-avatar">
+      <img ng-src="{{authData.github.cachedUserProfile.avatar_url}}" alt="">
+      <h2>{{authData.github.displayName}}</h2>
+      <p>{{authData.github.username}}</p>
+      <p>Github</p>
+    </div>
+  </div> -->
+
+</ion-view>
+
+
+
+  

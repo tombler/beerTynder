@@ -1,0 +1,62 @@
+<ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">Details</h1>
+    </ion-header-bar>
+    <ion-content>
+
+      <div class="list card">
+
+          <div class="item item-avatar">
+            <img src="{{beerDetail.labelIcon}}">
+            <h2>{{beerDetail.name}}</h2>
+            <p>{{beerDetail.brewery}}</p>
+            <p><strong>ABV: </strong>{{beerDetail.abv}}</p>
+            <p><strong>IBUs: </strong>{{beerDetail.ibu}}</p>
+          </div>
+
+          <div class="item item-body">
+            <img src="{{beerDetail.labelMedium}}">
+            <p>
+              <strong>Description: </strong>{{beerDetail.description}}
+            </p>
+            <p>
+              <strong>Style: </strong>{{beerDetail.style}}
+            </p>
+            <p>
+                <strong>Style Details: </strong>{{beerDetail.styleDescrip}}
+            </p>
+            <p>
+              <strong>Food Pairings: </strong>{{beerDetail.foodPairings}}
+            </p>
+            <p>
+              <strong>Organic? </strong>{{beerDetail.organic}}
+            </p>
+            <p>
+              <strong>Brewery Website: </strong><a href="{{beerDetail.breweryWebsite}}">{{beerDetail.breweryWebsite}}</a>
+            </p>
+            <p>
+              <strong>Brewery Type: </strong>{{beerDetail.breweryType}} 
+            </p>
+            <p>
+                <strong>Location: </strong>{{beerDetail.breweryLoc}}, {{beerDetail.breweryCountry}}
+            </p>
+          </div>
+
+          <div class="item tabs tabs-secondary tabs-icon-left">
+            <a class="tab-item" href="#">
+              <i class="icon ion-thumbsup"></i>
+              Like
+            </a>
+            <a class="tab-item" href="#">
+              <i class="icon ion-chatbox"></i>
+              Comment
+            </a>
+            <a class="tab-item" href="#">
+              <i class="icon ion-share"></i>
+              Share
+            </a>
+          </div>
+
+        </div>
+    </ion-content>
+</ion-modal-view>

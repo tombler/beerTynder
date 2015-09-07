@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['firebase'])
 
 .constant('PROXY', {
   url: 'http://localhost:1337/api.brewerydb.com/v2'
@@ -19,8 +19,13 @@ angular.module('starter.controllers', [])
     };
 })
 
+
 .controller('LandingCtrl', ['$scope', '$stateParams', '$firebaseArray', function($scope, $stateParams, $firebaseArray) {
   // console.log('hello');
+  $scope.login = function() {
+
+  };
+
   var ref = new Firebase('https://beertynder.firebaseio.com/myBeers');
   $scope.myBeers = $firebaseArray(ref);
   // console.log($scope.myBeers);
@@ -28,6 +33,9 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('ExploreCtrl', function($scope, $stateParams, $http, PROXY, $firebaseArray){
+
+  // On page load, run ajax call
+  runAjaxCall();
 
   function runAjaxCall() {
     $http.get(PROXY.url + "/beer/random/?key=124796ba126c92f04f87e154a597c112&format=json&hasLabels=Y&withBreweries=Y").
@@ -59,9 +67,7 @@ angular.module('starter.controllers', [])
       }
       // console.log("data :", data);
 
-      // **** Console is throwing errors when a beer loads that is missing one of the above properties.
-      // Possible solution: insert a for-in loop to loop over each prop of $scope.beer. If undefined, replace that value in $scope.beer with Error message, ex. "No description available", which will avoid errors when loading data and let user know info can't be displayed.
-
+      // **** Avoids errors when passing $scope.beer to Firebase.
       for (var key in $scope.beer) {
         if ($scope.beer[key] === undefined) {
           $scope.beer[key] = "Not available.";
@@ -71,14 +77,10 @@ angular.module('starter.controllers', [])
       console.log("Loaded beer: ", $scope.beer);
     }, function(data) {
       console.log(data)
-      // called asynchronously if an error occurs
-      // or server returns response with an error status.
+
     });
     
   }
-
-  // On page load, run ajax call
-  runAjaxCall();
 
   $scope.saveToWishlist = function () {
     console.log($scope.beer);
@@ -96,8 +98,10 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('WishlistCtrl', ['$scope', '$firebaseArray', '$stateParams', function($scope, $firebaseArray, $stateParams){
+.controller('WishlistCtrl', ['$scope', '$firebaseArray', '$stateParams', '$ionicModal', function($scope, $firebaseArray, $stateParams, $ionicModal){
   // console.log("Yo");
+
+  $scope.title = "YUP";
 
   var ref = new Firebase("https://beertynder.firebaseio.com/wishlist");
 
@@ -110,7 +114,49 @@ angular.module('starter.controllers', [])
     console.log('Rating selected - ' + rating);
   };
 
+  $scope.seeBeerDetails = function (beer) {
+    console.log(beer);
+    $scope.beerDetail = beer;
+    $scope.modal.show();
+  }
 
+  $ionicModal.fromTemplateUrl('templates/beerDetail.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+
+    });
+    $scope.openModal = function() {
+
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+      // Execute action
+    });
+
+  
+
+  // Add a swipe-left function to remove beer from wishlist.
+
+}])
+
+.controller('SocialCtrl', ['$scope', '$firebaseArray', '$stateParams', function($scope, $firebaseArray, $stateParams){
+  // console.log("Working");
+  var ref = new Firebase("https://beertynder.firebaseio.com/users");
+  $scope.users = $firebaseArray(ref);
 
 }])
 

@@ -1,13 +1,13 @@
 <ion-view view-title="Wishlist">
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right wishlistBeer" ng-repeat="beer in wishlist" type="item-text-wrap" href="#/user/wishlist">
+      <ion-item class="item-remove-animate item-avatar item-icon-right wishlistBeer" ng-repeat="beer in wishlist" type="item-text-wrap" ng-click="seeBeerDetails(beer)">
         <img src="{{beer.labelMedium}}" width="100px" alt="beer picture here">
         <h2>{{beer.name}}</h2>
         <p>{{beer.brewery}}</p>
         <p><strong>ABV: </strong>{{beer.abv}}</p>
         <div beer-rating rating-value="rating" max="10" on-rating-selected="saveRatingToServer(rating)"></div>
-        <i class="icon ion-chevron-right icon-accessory">See Details</i>
+        <i class="icon ion-chevron-right icon-accessory">Add to MyBeers</i>
       </ion-item>
     </ion-list>
   </ion-content>

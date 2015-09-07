@@ -31,6 +31,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   // Each state's controller can be found in controllers.js
   $stateProvider
 
+  // .state('login', {
+  //   url: '/', //url: '/:userId/home',
+  //   templateUrl: 'templates/login.html',
+  //   controller: 'AuthCtrl',
+  //   data: {
+  //      requiresLogin: false
+  //   }
+  // })
+
   // setup an abstract state for the tabs directive
     .state('tab', {
     url: '/tab',
@@ -45,30 +54,52 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     views: {
       'tab-home': {
         templateUrl: 'templates/landing.html',
-        controller: 'LandingCtrl'
+        controller: 'LandingCtrl',
+        access: {
+            requiresLogin: true
+        }
       }
     }
   })
 
   .state('tab.explore', {
-      url: '/user/explore', // url: '/:userId/explore',
-      views: {
-        'tab-explore': {
-          templateUrl: 'templates/explore.html',
-          controller: 'ExploreCtrl'
+    url: '/user/explore', // url: '/:userId/explore',
+    views: {
+      'tab-explore': {
+        templateUrl: 'templates/explore.html',
+        controller: 'ExploreCtrl',
+        access: {
+          requiresLogin: true
         }
       }
-    })
-    .state('tab.wishlist', {
-      url: '/user/wishlist', // url: '/:userId/wishlist'
-      views: {
-        'tab-wishlist': {
-          templateUrl: 'templates/wishlist.html',
-          controller: 'WishlistCtrl'
+    }
+  })
+  .state('tab.wishlist', {
+    url: '/user/wishlist', // url: '/:userId/wishlist'
+    views: {
+      'tab-wishlist': {
+        templateUrl: 'templates/wishlist.html',
+        controller: 'WishlistCtrl',
+        access: {
+          requiresLogin: true
         }
       }
-    });
+    }
+  })
+  .state('tab.social', {
+    url: '/user/social', // url: '/:userId/wishlist'
+    views: {
+      'tab-social': {
+        templateUrl: 'templates/social.html',
+        controller: 'SocialCtrl',
+        access: {
+          requiresLogin: true
+        }
+      }
+    }
+  });
 
-  $urlRouterProvider.otherwise('tab/user/home'); // 'tab/:userId/home'
+
+  // $urlRouterProvider.otherwise('/login'); // 'tab/:userId/home'
 
 });

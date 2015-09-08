@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'firebase'])
+angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -20,7 +20,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
-  });
+  })
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -40,17 +40,28 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   //   }
   // })
 
+  .state('tab.login', {
+    url: '/login', //url: '/:userId/home',
+    views: {
+      'tab-login': {
+        templateUrl: 'templates/login.html',
+        controller: 'LoginCtrl'
+      }
+    }
+  })
+
   // setup an abstract state for the tabs directive
     .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'templates/tabs.html'
+    templateUrl: 'templates/tabs.html',
+    controller: 'LandingCtrl'
   })
 
   // Each tab has its own nav history stack:
 
   .state('tab.landing', {
-    url: '/user/home', //url: '/:userId/home',
+    url: '/:userId/home', //url: '/:userId/home',
     views: {
       'tab-home': {
         templateUrl: 'templates/landing.html',
@@ -63,7 +74,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
 
   .state('tab.explore', {
-    url: '/user/explore', // url: '/:userId/explore',
+    url: '/:userId/explore', // url: '/:userId/explore',
     views: {
       'tab-explore': {
         templateUrl: 'templates/explore.html',
@@ -75,7 +86,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
   .state('tab.wishlist', {
-    url: '/user/wishlist', // url: '/:userId/wishlist'
+    url: '/:userId/wishlist', // url: '/:userId/wishlist'
     views: {
       'tab-wishlist': {
         templateUrl: 'templates/wishlist.html',
@@ -87,7 +98,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
   .state('tab.social', {
-    url: '/user/social', // url: '/:userId/wishlist'
+    url: '/:userId/social', // url: '/:userId/wishlist'
     views: {
       'tab-social': {
         templateUrl: 'templates/social.html',

@@ -217,11 +217,6 @@ angular.module('starter.controllers', ['firebase'])
 }]) 
 
 .controller('ExploreCtrl', function($scope, $stateParams, $http, PROXY, $firebaseArray){
-
-  $scope.tell = function(message){
-    console.log(message);
-  }
-
   // On page load, run ajax call
   runAjaxCall();
 
@@ -286,6 +281,19 @@ angular.module('starter.controllers', ['firebase'])
   }
 
   $scope.discard = function(){
+    runAjaxCall();
+  }
+
+  $scope.saveToMyBeers = function () {
+    console.log($scope.beer);
+
+    var ref = new Firebase("https://beertynder.firebaseio.com/myBeers");
+    $scope.myBeers = $firebaseArray(ref);
+    console.log($scope.myBeers);
+    $scope.myBeers.$add($scope.beer)
+      .then(function (data) {
+        console.log("Beer added to myBeers: ", data);
+      });
     runAjaxCall();
   }
   

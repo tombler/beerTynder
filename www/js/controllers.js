@@ -1,5 +1,29 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['firebase'])
 
+.controller('LoginCtrl', ["$scope", "$firebaseAuth", "$q", "Auth", "$location",
+  function($scope, $firebaseAuth, $q, storage, Auth, $location) {
+
+  var usersRef = new Firebase("https//beertynder.firebaseio.com/users");
+  $scope.uid = $firebaseAuth(usersRef);
+
+  $scope.login = function() {
+  $scope.uid.$authWithOAuthRedirect("facebook").then(function(authData) {
+    // User successfully logged in
+  }).catch(function(error) {
+    if (error.code === "TRANSPORT_UNAVAILABLE") {
+      Auth.$authWithOAuthRedirect("facebook").then(function(authData) {
+        // User successfully logged in. We can log to the console
+        // since we’re using a popup here
+        console.log(authData);
+      });
+    } else {
+      // Another error occurred
+      console.log(error);
+    }
+  });
+};
+
+}])
 
 .controller('LandingCtrl', ['$scope', '$stateParams', '$firebaseArray', function($scope, $stateParams, $firebaseArray) {
   // console.log('hello');

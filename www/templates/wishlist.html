@@ -2,7 +2,7 @@
   <ion-content>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="beer in wishlist" type="item-text-wrap" href="#/user/wishlist">
-        <img src="{{beer.image}}" width="300px" alt="beer picture here">
+        <img src="{{beer.labelIcon}}" width="300px" alt="beer picture here">
         <h2>{{beer.name}}</h2>
         <div beer-rating rating-value="rating" max="10" on-rating-selected="saveRatingToServer(rating)"></div>
         <i class="icon ion-chevron-right icon-accessory">Tasted</i>

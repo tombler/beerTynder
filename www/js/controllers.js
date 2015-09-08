@@ -384,8 +384,8 @@ angular.module('starter.controllers', ['firebase'])
   $scope.userInput = "";
 
   $scope.search = function(){
-    console.log("clicked");
-    $http.get(PROXY.url + "/search/?&key=124796ba126c92f04f87e154a597c112&format=json&type=beer&q=Goosinator").
+    console.log("$scope.userInput", $scope.userInput);
+    $http.get(PROXY.url + "/search/?&key=124796ba126c92f04f87e154a597c112&format=json&type=beer&q="+$scope.userInput).
     then(function(data) {///search?q=Goosinator&type=beer
       console.log(data);
       $scope.results = data;

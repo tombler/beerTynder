@@ -1,103 +1,122 @@
 angular.module('starter.controllers', ['firebase'])
 
-.constant('PROXY', {
+.constant("PROXY", {
   url: 'http://localhost:1337/api.brewerydb.com/v2'
 })
 
-.factory("storage", function () {
-  var storageObj = {};
+.factory('storage', function () {
+    var bucket = {};
 
     return {
-        get: function (key) {
-            if (storageObj.hasOwnProperty(key)) {
-                return storageObj[key];
+        get: function (junk) {
+            if (bucket.hasOwnProperty(junk)) {
+                return bucket[junk];
             }
         },
         set: function (key, value) {
-            storageObj[key] = value;
+            bucket[key] = value;
         }
     };
 })
 
 .run(['storage', function(storage) {
-  var ref = new Firebase("https://beertynder.firebaseio.com/");
-  console.log("auth response", ref.getAuth());
+   var ref = new Firebase("https://beertynder.firebaseio.com/");
+   console.log("auth response", ref.getAuth());
 
-  // auth = $firebaseAuth(ref);
-  var authData = ref.getAuth();
+   // auth = $firebaseAuth(ref);
+   var authData = ref.getAuth();
 
-  if (authData === null) {
-    ref.$authWithOAuthPopup(loginType)
-      .then(function (authData) {
-        storage.set("userId", authData.uid);
-        // $location.url('/users/' + authData.uid);
-      })
-      .catch(function(error) {
-        console.log("Authentication failed:", error);
-      });
-    } else {
-      storage.set("userId", authData.uid);
-    }
+   if (authData === null) {
+     ref.$authWithOAuthPopup(loginType)
+       .then(function (authData) {
+         storage.set("userId", authData.uid);
+         // $location.url('/users/' + authData.uid);
+       })
+       .catch(function(error) {
+         console.log("Authentication failed:", error);
+       });
+     } else {
+       storage.set("userId", authData.uid);
+     }
 }])
 
 .factory("Auth", function($firebaseAuth) {
-  var usersRef = new Firebase("https://beertynder.firebaseio.com/");
-  return $firebaseAuth(usersRef);
+ var usersRef = new Firebase("https://beertynder.firebaseio.com/");
+ return $firebaseAuth(usersRef);
 })
 
-.controller('LoginCtrl', ['$scope', 'Auth', "$location", "$firebaseArray", "storage", function ($scope, Auth, $location, $firebaseArray, storage) {
+.controller('LoginCtrl', ['$scope', 'storage', "$location",  "Auth", "$firebaseArray", function ($scope, storage, $location, Auth, $firebaseArray) {
 // console.log("het")
-  $scope.login = function() {
-    Auth.$authWithOAuthPopup("facebook")
-      .then(function (authData) {
-          console.log(authData);
-          storage.set("userId", authData.uid);
-          var ref = new Firebase('https://beertynder.firebaseio.com/users');
-          $scope.users = $firebaseArray(ref);
-          
-          
-          $scope.users.$loaded()
-            .then(function (users) {
-              var userExists = 0;
-              for (var i = 0; i < users.length; i++) {
-                // console.log(users[i])
-                if (users[i].uid === authData.uid) {
-                  userExists = 1;
-                } else {
-                  // console.log("New user: ", users[i].uid);
-                }
-                
-              }
-              console.log(userExists);
-              if (userExists === 0) {
-                $scope.users.$add({
-                  "name": authData.facebook.displayName,
-                  "profilePic": authData.facebook.profileImageURL,
-                  "uid": authData.uid,
-                  "myBeers": [],
-                  "wishlist": []
-                })
-              }
-            })
+$scope.login = function() {
+   Auth.$authWithOAuthPopup("facebook")
+     .then(function (authData) {
+       if (authData !== null) {
+         console.log(authData);
+         storage.set("userId", authData.uid);
+         var ref = new Firebase('https://beertynder.firebaseio.com/users');
+         $scope.users = $firebaseArray(ref);
+         
+         
+         $scope.users.$loaded()
+           .then(function (users) {
+             var userExists = 0;
+             for (var i = 0; i < users.length; i++) {
+               // console.log(users[i])
+               if (users[i].uid === authData.uid) {
+                 userExists = 1;
+               } else {
+                 console.log("New user: ", users[i].uid);
+               }
+               
+             }
+             console.log(userExists);
+             if (userExists === 0) {
+               $scope.users.$add({
+                 "name": authData.facebook.displayName,
+                 "profilePic": authData.facebook.profileImageURL,
+                 "uid": authData.uid,
+                 "myBeers": [],
+                 "wishlist": []
+               })
+             }
+           })
+         
 
-          $location.path('tab/' + authData.uid + '/home');
-        
-      });
-  };
-
+         $location.path('tab/'+ authData.uid + '/home');
+       }
+     });
+ };
 }])
+ 
 
-
-.controller('LandingCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicModal', "storage", function($scope, $stateParams, $firebaseArray, $ionicModal, storage) {
+.controller('LandingCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicModal', 'storage', '$location', function($scope, $stateParams, $firebaseArray, $ionicModal, storage, $location) {
   // console.log('hello');
   $scope.userId = storage.get("userId");
-  console.log($scope.userId);
 
   $scope.isDisabled = true;
   $scope.addButtonText = "Added";
 
-  var ref = new Firebase('https://beertynder.firebaseio.com/myBeers');
-  $scope.myBeers = $firebaseArray(ref);
+
+
+  var ref = new Firebase("https://beertynder.firebaseio.com/users");
+    $scope.users = $firebaseArray(ref);
+
+    $scope.users.$loaded()
+      .then(function (usersArray) {
+        for (var i = 0; i < usersArray.length; i ++) {
+          if (usersArray[i].uid === $scope.userId) {
+            console.log(usersArray[i].$id);
+
+            var ref = new Firebase("https://beertynder.firebaseio.com/users/" + usersArray[i].$id + "/myBeers/");
+            $scope.userBeers = $firebaseArray(ref);
+
+          }
+        }
+
+      })
+
+
+
   // console.log($scope.myBeers);
 
   $scope.saveRatingToFirebase = function (beer, rating) {
@@ -109,7 +128,6 @@ angular.module('starter.controllers', ['firebase'])
       .then(function () {
 
       })
-
   }
 
   $scope.seeBeerDetails = function (beer) {
@@ -154,8 +172,6 @@ angular.module('starter.controllers', ['firebase'])
 .controller('ExploreCtrl', ["$scope", "$stateParams", "$http", "PROXY", "$firebaseArray", "storage", function($scope, $stateParams, $http, PROXY, $firebaseArray, storage){
 
   $scope.userId = storage.get("userId");
-
-
   // On page load, run ajax call
   runAjaxCall();
 
@@ -232,18 +248,33 @@ angular.module('starter.controllers', ['firebase'])
   
 }])
 
-.controller('WishlistCtrl', ['$scope', '$firebaseArray', '$stateParams', '$ionicModal', 'storage', function($scope, $firebaseArray, $stateParams, $ionicModal, storage){
+
+.controller('WishlistCtrl', ['$scope', '$firebaseArray', '$stateParams', '$ionicModal', "storage", function($scope, $firebaseArray, $stateParams, $ionicModal, storage){
   // console.log("Yo");
-  // $scope.userId = storage.get("userId");
+  $scope.userId = storage.get("userId");
   $scope.addButtonText = "Add To My Beers";
 
-  var ref = new Firebase("https://beertynder.firebaseio.com/wishlist");
 
-  $scope.wishlist = $firebaseArray(ref);
 
-  console.log("$scope.wishlist", $scope.wishlist);
+  var ref = new Firebase("https://beertynder.firebaseio.com/users");
+  $scope.users = $firebaseArray(ref);
+
+  $scope.users.$loaded()
+    .then(function (usersArray) {
+      for (var i = 0; i < usersArray.length; i ++) {
+        if (usersArray[i].uid === $scope.userId) {
+          console.log(usersArray[i].$id);
+
+          var ref = new Firebase("https://beertynder.firebaseio.com/users/" + usersArray[i].$id + "/wishlist/");
+          $scope.userWishlist = $firebaseArray(ref);
+
+        }
+      }
+
+    })
 
   $scope.rating = 0;
+
   $scope.saveRatingToServer = function(rating) {
     console.log('Rating selected - ' + rating);
   };
@@ -286,17 +317,34 @@ angular.module('starter.controllers', ['firebase'])
 
   $scope.saveToMyBeers = function (beerDetail) {
     // console.log(beerDetail); 
-    $scope.wishlist.$remove(beerDetail)
+    $scope.userWishlist.$remove(beerDetail)
       .then(function (data) {
         console.log("Removed beer from wishlist: ", data);
       })
 
-    var ref = new Firebase("https://beertynder.firebaseio.com/myBeers");
-    $scope.myBeers = $firebaseArray(ref);
-    $scope.myBeers.$add(beerDetail)
-      .then(function (data) {
-        console.log("Beer added to myBeers: ", data);
-      })
+    var ref = new Firebase("https://beertynder.firebaseio.com/users");
+    $scope.users = $firebaseArray(ref);
+
+    $scope.users.$loaded()
+      .then(function (usersArray) {
+        for (var i = 0; i < usersArray.length; i++) {
+         // console.log(users[i])
+         if (usersArray[i].uid === $scope.userId) {
+            // console.log("userId.$id", userId.$id);
+
+            var ref = new Firebase('https://beertynder.firebaseio.com/users/' + usersArray[i].$id + '/myBeers/');
+            $scope.myBeers = $firebaseArray(ref);
+
+              $scope.myBeers.$add(beerDetail)
+              .then(function (data) {
+                console.log("Beer added to myBeers: ", data);
+              })
+              
+         } else {
+           // console.log("error", error);
+         }
+        }
+      });
 
     $scope.isDisabled = true;
     $scope.addButtonText = "Added";

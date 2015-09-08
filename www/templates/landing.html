@@ -2,7 +2,7 @@
   
    <ion-content>
      <ion-list>
-       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="beer in myBeers" type="item-text-wrap" href="#/tab/user/home" ng-click="seeBeerDetails(beer)"> 
+       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="beer in userBeers" type="item-text-wrap" href="#/tab/{{userId}}/home" ng-click="seeBeerDetails(beer)"> 
        <!-- WHen MVP is done: route each href to tab/user/:beerId -->
         <img src="{{beer.labelIcon}}">
         <h2>{{beer.name}}</h2>

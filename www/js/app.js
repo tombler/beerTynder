@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'firebase'])
+angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -20,7 +20,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
-  });
+  })
 })
 
 
@@ -39,6 +39,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     // data: {
     //    requiresLogin: true
     // }
+  })
+
+  .state('tab.login', {
+    url: '/login', //url: '/:userId/home',
+    views: {
+      'tab-login': {
+        templateUrl: 'templates/login.html',
+        controller: 'LoginCtrl'
+      }
+    }
   })
 
   // setup an abstract state for the tabs directive

@@ -20,17 +20,68 @@ angular.module('starter.controllers', ['firebase'])
 })
 
 
-.controller('LandingCtrl', ['$scope', '$stateParams', '$firebaseArray', function($scope, $stateParams, $firebaseArray) {
+.controller('LandingCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicModal', function($scope, $stateParams, $firebaseArray, $ionicModal) {
   // console.log('hello');
   $scope.login = function() {
 
   };
 
+  $scope.isDisabled = true;
+  $scope.addButtonText = "Added";
+
   var ref = new Firebase('https://beertynder.firebaseio.com/myBeers');
   $scope.myBeers = $firebaseArray(ref);
   // console.log($scope.myBeers);
+
+  $scope.saveRatingToFirebase = function (beer, rating) {
+    console.log(rating);
+    console.log(beer);
+    beer.rating = rating;
+    $scope.myBeers.$save(beer)
+      .then(function () {
+
+      })
+
+  }
+
+  $scope.seeBeerDetails = function (beer) {
+    console.log(beer);
+
+    $scope.beerDetail = beer;
+    $scope.modal.show();
+  }
+
+  $ionicModal.fromTemplateUrl('templates/beerDetail.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+
+    });
+
+    $scope.openModal = function() {
+
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+      // Execute action
+    });
+
+    // Add a swipe-left function to remove beer from wishlist.
   
-}])
+}]) 
 
 .controller('ExploreCtrl', function($scope, $stateParams, $http, PROXY, $firebaseArray){
 
@@ -69,7 +120,7 @@ angular.module('starter.controllers', ['firebase'])
 
       // **** Avoids errors when passing $scope.beer to Firebase.
       for (var key in $scope.beer) {
-        if ($scope.beer[key] === undefined) {
+        if ($scope.beer[key] === undefined || $scope.beer[key] === (undefined + "%")) {
           $scope.beer[key] = "Not available.";
         }
       }

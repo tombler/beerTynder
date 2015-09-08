@@ -215,7 +215,7 @@ angular.module('starter.controllers', ['firebase'])
           if (usersArray[i].uid === $scope.userId) {
             console.log(usersArray[i].$id);
 
-            var ref = new Firebase("https://beertynder.firebaseio.com/users/" + usersArray[i].$id + "/myBeers/");
+            var ref = new Firebase("https://beertynder.firebaseio.com/users/" + usersArray[i].$id + "/wishlist/");
             $scope.userWishlist = $firebaseArray(ref);
             $scope.userWishlist.$add($scope.beer)
               .then(function (data) {

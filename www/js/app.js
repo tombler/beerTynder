@@ -34,7 +34,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   // .state('login', {
   //   url: '/', //url: '/:userId/home',
   //   templateUrl: 'templates/login.html',
-  //   controller: 'AuthCtrl',
+  //   controller: 'LoginCtrl',
   //   data: {
   //      requiresLogin: false
   //   }

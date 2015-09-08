@@ -1,7 +1,103 @@
 angular.module('starter.controllers', ['firebase'])
 
+// .run(['$rootScope', '$window', 'srvAuth', 
+//   function($rootScope, $window, sAuth) {
+
+//   $rootScope.user = {};
+
+//   $window.fbAsyncInit = function() {
+//     // Executed when the SDK is loaded
+
+//     FB.init({ 
+
+//       /* 
+//        The app id of the web app;
+//        To register a new app visit Facebook App Dashboard
+//        ( https://developers.facebook.com/apps/ ) 
+//       */
+
+//       appId: '874695239280638', 
+
+//       /* 
+//        Adding a Channel File improves the performance 
+//        of the javascript SDK, by addressing issues 
+//        with cross-domain communication in certain browsers. 
+//       */
+
+//       channelUrl: 'app/channel.html', 
+
+       
+//        Set if you want to check the authentication status
+//        at the start up of the app 
+      
+
+//       status: true, 
+
+//       /* 
+//        Enable cookies to allow the server to access 
+//        the session 
+//       */
+
+//       cookie: true, 
+
+//       /* Parse XFBML */
+
+//       xfbml: true 
+//     });
+
+//     sAuth.watchAuthenticationStatusChange();
+
+//   };
+
+//   // Are you familiar to IIFE ( http://bit.ly/iifewdb ) ?
+
+//   (function(d){
+//     // load the Facebook javascript SDK
+
+//     var js, 
+//     id = 'facebook-jssdk', 
+//     ref = d.getElementsByTagName('script')[0];
+
+//     if (d.getElementById(id)) {
+//       return;
+//     }
+
+//     js = d.createElement('script'); 
+//     js.id = id; 
+//     js.async = true;
+//     js.src = "//connect.facebook.net/en_US/all.js";
+
+//     ref.parentNode.insertBefore(js, ref);
+
+//   }(document));
+
+// }])
+
+.factory('facebookService', function($q) {
+    return {
+        getMyLastName: function() {
+            var deferred = $q.defer();
+            FB.api('/me', {
+                fields: 'last_name'
+            }, function(response) {
+                if (!response || response.error) {
+                    deferred.reject('Error occured');
+                } else {
+                    deferred.resolve(response);
+                }
+            });
+            return deferred.promise;
+        }
+    }
+})
+
 .constant('PROXY', {
   url: 'http://localhost:1337/api.brewerydb.com/v2'
+})
+
+.factory("Auth", function($firebaseAuth) {
+  var usersRef = new Firebase("https://beertynder.firebaseio.com/users");
+  return $firebaseAuth(usersRef);
 })
 
 .factory("storage", function () {
@@ -19,12 +115,48 @@ angular.module('starter.controllers', ['firebase'])
     };
 })
 
+// .controller('AppCtrl', function($scope, $state, $ionicModal) {
+   
+//   $ionicModal.fromTemplateUrl('templates/login.html', function(modal) {
+//       $scope.loginModal = modal;
+//     },
+//     {
+//       scope: $scope,
+//       animation: 'slide-in-up'
+//     }
+//   );
+//   //Be sure to cleanup the modal by removing it from the DOM
+//   $scope.$on('$destroy', function() {
+//     $scope.loginModal.remove();
+//   });
+// })
+
+.controller('LoginCtrl', ['$scope', 'Auth', "$location", function ($scope, Auth, $location) {
+ 
+  // $scope.login = function() {
+  //   Auth.$authWithOAuthRedirect("facebook").then(function(authData) {
+  //     // User successfully logged in
+  //     $location.url('tab/user/home')
+  //     console.log(authData)
+  //   }).catch(function(error) {
+  //     if (error.code === "TRANSPORT_UNAVAILABLE") {
+  //       Auth.$authWithOAuthPopup("facebook").then(function(authData) {
+  //         // User successfully logged in. We can log to the console
+  //         // since we’re using a popup here
+  //         console.log(authData);
+  //         $location.url('tab/user/home')
+  //       });
+  //     } else {
+  //       // Another error occurred
+  //       console.log(error);
+  //     }
+  //   });
+  // };  
+}])
+
 
 .controller('LandingCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicModal', function($scope, $stateParams, $firebaseArray, $ionicModal) {
   // console.log('hello');
-  $scope.login = function() {
-
-  };
 
   $scope.isDisabled = true;
   $scope.addButtonText = "Added";
@@ -34,6 +166,7 @@ angular.module('starter.controllers', ['firebase'])
   // console.log($scope.myBeers);
 
   $scope.saveRatingToFirebase = function (beer, rating) {
+    $scope.modal.hide();
     console.log(rating);
     console.log(beer);
     beer.rating = rating;

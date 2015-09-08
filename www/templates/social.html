@@ -1,15 +1,15 @@
 <ion-view view-title="Social">
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="user in users" type="item-text-wrap" href="#tab/user/social">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="user in users" type="item-text-wrap" href="#tab/{{userId}}/explore">
         <img src="{{user.profilePic}}" width="100px" alt="">
         <h2>{{user.name}}</h2>
+        <h2>{{user.name}}'s Beers</h2>
         <ul ng-repeat="beer in user.myBeers">
-          <li>{{user.name}}'s Beers:</li>
           <li>{{beer.name}}</li>
         </ul>
+        <h2>{{user.name}}'s Wishlist</h2>
         <ul ng-repeat="beer in user.wishlist">
-          <li>{{user.name}}'s Wishlist:</li>
           <li>{{beer.name}}</li>
         </ul>
         <i class="icon ion-chevron-right icon-accessory">See Details</i>

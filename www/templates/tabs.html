@@ -6,22 +6,22 @@ navigation history that also transitions its views in and out.
 <ion-tabs class="tabs-icon-top tabs-color-active-positive">
 
   <!-- MyBeers Tab -->
-  <ion-tab title="My Beers" icon-off="ion-home" icon-on="ion-home" href="#/tab/user/home">
+  <ion-tab title="My Beers" icon-off="ion-home" icon-on="ion-home" href="#/tab/{{userId}}/home">
     <ion-nav-view name="tab-home"></ion-nav-view>
   </ion-tab>
 
   <!-- Explore Tab -->
-  <ion-tab title="Exlpore" icon-off="ion-ios-world" icon-on="ion-ios-world" href="#/tab/user/explore">
+  <ion-tab title="Explore" icon-off="ion-ios-world" icon-on="ion-ios-world" href="#/tab/{{userId}}/explore">
     <ion-nav-view name="tab-explore"></ion-nav-view>
   </ion-tab>
 
   <!-- Wishlist Tab -->
-  <ion-tab title="Wishlist" icon-off="ion-star" icon-on="ion-star" href="#/tab/user/wishlist">
+  <ion-tab title="Wishlist" icon-off="ion-star" icon-on="ion-star" href="#/tab/{{userId}}/wishlist">
     <ion-nav-view name="tab-wishlist"></ion-nav-view>
   </ion-tab>
 
   <!-- Social Tab -->
-  <ion-tab title="Social" icon-off="ion-star" icon-on="ion-star" href="#/tab/user/social">
+  <ion-tab title="Social" icon-off="ion-star" icon-on="ion-star" href="#/tab/{{userId}}/social">
     <ion-nav-view name="tab-social"></ion-nav-view>
   </ion-tab>
 

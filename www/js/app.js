@@ -23,6 +23,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 })
 
+
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
@@ -31,26 +32,36 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-  // .state('login', {
-  //   url: '/', //url: '/:userId/home',
-  //   templateUrl: 'templates/login.html',
-  //   controller: 'LoginCtrl',
-  //   data: {
-  //      requiresLogin: false
-  //   }
-  // })
+  .state('login', {
+    url: '/', //url: '/:userId/home',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl'
+    // data: {
+    //    requiresLogin: true
+    // }
+  })
 
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('redirect', {
+    url: '/&__firebase_request_key=:requestkey',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl',
+    data: {
+       requiresLogin: false
+    }
+  })
+
+  .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'templates/tabs.html'
+    templateUrl: 'templates/tabs.html',
+    controller: 'LandingCtrl'
   })
 
   // Each tab has its own nav history stack:
 
   .state('tab.landing', {
-    url: '/user/home', //url: '/:userId/home',
+    url: '/:userId/home', //url: '/:userId/home',
     views: {
       'tab-home': {
         templateUrl: 'templates/landing.html',
@@ -63,7 +74,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
 
   .state('tab.explore', {
-    url: '/user/explore', // url: '/:userId/explore',
+    url: '/:userId/explore', // url: '/:userId/explore',
     views: {
       'tab-explore': {
         templateUrl: 'templates/explore.html',
@@ -75,7 +86,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
   .state('tab.wishlist', {
-    url: '/user/wishlist', // url: '/:userId/wishlist'
+    url: '/:userId/wishlist', // url: '/:userId/wishlist'
     views: {
       'tab-wishlist': {
         templateUrl: 'templates/wishlist.html',
@@ -87,7 +98,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
   .state('tab.social', {
-    url: '/user/social', // url: '/:userId/wishlist'
+    url: '/:userId/social', // url: '/:userId/wishlist'
     views: {
       'tab-social': {
         templateUrl: 'templates/social.html',
@@ -100,6 +111,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 
 
-  // $urlRouterProvider.otherwise('/login'); // 'tab/:userId/home'
+  // $urlRouterProvider.otherwise('/tab/user/home'); // 'tab/:userId/home'
 
 });

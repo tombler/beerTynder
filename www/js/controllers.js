@@ -1,103 +1,7 @@
 angular.module('starter.controllers', ['firebase'])
 
-// .run(['$rootScope', '$window', 'srvAuth', 
-//   function($rootScope, $window, sAuth) {
-
-//   $rootScope.user = {};
-
-//   $window.fbAsyncInit = function() {
-//     // Executed when the SDK is loaded
-
-//     FB.init({ 
-
-//       /* 
-//        The app id of the web app;
-//        To register a new app visit Facebook App Dashboard
-//        ( https://developers.facebook.com/apps/ ) 
-//       */
-
-//       appId: '874695239280638', 
-
-//       /* 
-//        Adding a Channel File improves the performance 
-//        of the javascript SDK, by addressing issues 
-//        with cross-domain communication in certain browsers. 
-//       */
-
-//       channelUrl: 'app/channel.html', 
-
-       
-//        Set if you want to check the authentication status
-//        at the start up of the app 
-      
-
-//       status: true, 
-
-//       /* 
-//        Enable cookies to allow the server to access 
-//        the session 
-//       */
-
-//       cookie: true, 
-
-//       /* Parse XFBML */
-
-//       xfbml: true 
-//     });
-
-//     sAuth.watchAuthenticationStatusChange();
-
-//   };
-
-//   // Are you familiar to IIFE ( http://bit.ly/iifewdb ) ?
-
-//   (function(d){
-//     // load the Facebook javascript SDK
-
-//     var js, 
-//     id = 'facebook-jssdk', 
-//     ref = d.getElementsByTagName('script')[0];
-
-//     if (d.getElementById(id)) {
-//       return;
-//     }
-
-//     js = d.createElement('script'); 
-//     js.id = id; 
-//     js.async = true;
-//     js.src = "//connect.facebook.net/en_US/all.js";
-
-//     ref.parentNode.insertBefore(js, ref);
-
-//   }(document));
-
-// }])
-
-.factory('facebookService', function($q) {
-    return {
-        getMyLastName: function() {
-            var deferred = $q.defer();
-            FB.api('/me', {
-                fields: 'last_name'
-            }, function(response) {
-                if (!response || response.error) {
-                    deferred.reject('Error occured');
-                } else {
-                    deferred.resolve(response);
-                }
-            });
-            return deferred.promise;
-        }
-    }
-})
-
 .constant('PROXY', {
   url: 'http://localhost:1337/api.brewerydb.com/v2'
-})
-
-.factory("Auth", function($firebaseAuth) {
-  var usersRef = new Firebase("https://beertynder.firebaseio.com/users");
-  return $firebaseAuth(usersRef);
 })
 
 .factory("storage", function () {
@@ -115,48 +19,79 @@ angular.module('starter.controllers', ['firebase'])
     };
 })
 
-// .controller('AppCtrl', function($scope, $state, $ionicModal) {
-   
-//   $ionicModal.fromTemplateUrl('templates/login.html', function(modal) {
-//       $scope.loginModal = modal;
-//     },
-//     {
-//       scope: $scope,
-//       animation: 'slide-in-up'
-//     }
-//   );
-//   //Be sure to cleanup the modal by removing it from the DOM
-//   $scope.$on('$destroy', function() {
-//     $scope.loginModal.remove();
-//   });
-// })
+.run(['storage', function(storage) {
+  var ref = new Firebase("https://beertynder.firebaseio.com/");
+  console.log("auth response", ref.getAuth());
 
-.controller('LoginCtrl', ['$scope', 'Auth', "$location", function ($scope, Auth, $location) {
- 
-  // $scope.login = function() {
-  //   Auth.$authWithOAuthRedirect("facebook").then(function(authData) {
-  //     // User successfully logged in
-  //     $location.url('tab/user/home')
-  //     console.log(authData)
-  //   }).catch(function(error) {
-  //     if (error.code === "TRANSPORT_UNAVAILABLE") {
-  //       Auth.$authWithOAuthPopup("facebook").then(function(authData) {
-  //         // User successfully logged in. We can log to the console
-  //         // since we’re using a popup here
-  //         console.log(authData);
-  //         $location.url('tab/user/home')
-  //       });
-  //     } else {
-  //       // Another error occurred
-  //       console.log(error);
-  //     }
-  //   });
-  // };  
+  // auth = $firebaseAuth(ref);
+  var authData = ref.getAuth();
+
+  if (authData === null) {
+    ref.$authWithOAuthPopup(loginType)
+      .then(function (authData) {
+        storage.set("userId", authData.uid);
+        // $location.url('/users/' + authData.uid);
+      })
+      .catch(function(error) {
+        console.log("Authentication failed:", error);
+      });
+    } else {
+      storage.set("userId", authData.uid);
+    }
+}])
+
+.factory("Auth", function($firebaseAuth) {
+  var usersRef = new Firebase("https://beertynder.firebaseio.com/");
+  return $firebaseAuth(usersRef);
+})
+
+.controller('LoginCtrl', ['$scope', 'Auth', "$location", "$firebaseArray", "storage", function ($scope, Auth, $location, $firebaseArray, storage) {
+// console.log("het")
+  $scope.login = function() {
+    Auth.$authWithOAuthPopup("facebook")
+      .then(function (authData) {
+          console.log(authData);
+          storage.set("userId", authData.uid);
+          var ref = new Firebase('https://beertynder.firebaseio.com/users');
+          $scope.users = $firebaseArray(ref);
+          
+          
+          $scope.users.$loaded()
+            .then(function (users) {
+              var userExists = 0;
+              for (var i = 0; i < users.length; i++) {
+                // console.log(users[i])
+                if (users[i].uid === authData.uid) {
+                  userExists = 1;
+                } else {
+                  // console.log("New user: ", users[i].uid);
+                }
+                
+              }
+              console.log(userExists);
+              if (userExists === 0) {
+                $scope.users.$add({
+                  "name": authData.facebook.displayName,
+                  "profilePic": authData.facebook.profileImageURL,
+                  "uid": authData.uid,
+                  "myBeers": [],
+                  "wishlist": []
+                })
+              }
+            })
+
+          $location.path('tab/' + authData.uid + '/home');
+        
+      });
+  };
+
 }])
 
 
-.controller('LandingCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicModal', function($scope, $stateParams, $firebaseArray, $ionicModal) {
+.controller('LandingCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicModal', "storage", function($scope, $stateParams, $firebaseArray, $ionicModal, storage) {
   // console.log('hello');
+  $scope.userId = storage.get("userId");
+  console.log($scope.userId);
 
   $scope.isDisabled = true;
   $scope.addButtonText = "Added";
@@ -216,7 +151,10 @@ angular.module('starter.controllers', ['firebase'])
   
 }]) 
 
-.controller('ExploreCtrl', function($scope, $stateParams, $http, PROXY, $firebaseArray){
+.controller('ExploreCtrl', ["$scope", "$stateParams", "$http", "PROXY", "$firebaseArray", "storage", function($scope, $stateParams, $http, PROXY, $firebaseArray, storage){
+
+  $scope.userId = storage.get("userId");
+
 
   // On page load, run ajax call
   runAjaxCall();
@@ -246,8 +184,7 @@ angular.module('starter.controllers', ['firebase'])
         breweryType: data.data.data.breweries[0].locations[0].locationTypeDisplay,
         // User-specific data:
         rating: 0,
-        dateAdded: new Date(),
-        uid: "Tom"
+        dateAdded: new Date()
       }
       // console.log("data :", data);
 
@@ -269,22 +206,35 @@ angular.module('starter.controllers', ['firebase'])
   $scope.saveToWishlist = function () {
     console.log($scope.beer);
 
-    var ref = new Firebase("https://beertynder.firebaseio.com/wishlist");
-    $scope.wishlist = $firebaseArray(ref);
+    var ref = new Firebase("https://beertynder.firebaseio.com/users");
+    $scope.users = $firebaseArray(ref);
 
-    $scope.wishlist.$add($scope.beer)
-      .then(function (addedBeer) {
-        console.log("The following beer was added to your wishlist: ", addedBeer);
-      });
+    $scope.users.$loaded()
+      .then(function (usersArray) {
+        for (var i = 0; i < usersArray.length; i ++) {
+          if (usersArray[i].uid === $scope.userId) {
+            console.log(usersArray[i].$id);
+
+            var ref = new Firebase("https://beertynder.firebaseio.com/users/" + usersArray[i].$id + "/myBeers/");
+            $scope.userWishlist = $firebaseArray(ref);
+            $scope.userWishlist.$add($scope.beer)
+              .then(function (data) {
+                console.log("New beer added: ", data)
+              })
+
+          }
+        }
+
+      })
 
     runAjaxCall();
   }
   
-})
+}])
 
-.controller('WishlistCtrl', ['$scope', '$firebaseArray', '$stateParams', '$ionicModal', function($scope, $firebaseArray, $stateParams, $ionicModal){
+.controller('WishlistCtrl', ['$scope', '$firebaseArray', '$stateParams', '$ionicModal', 'storage', function($scope, $firebaseArray, $stateParams, $ionicModal, storage){
   // console.log("Yo");
-
+  // $scope.userId = storage.get("userId");
   $scope.addButtonText = "Add To My Beers";
 
   var ref = new Firebase("https://beertynder.firebaseio.com/wishlist");

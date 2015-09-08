@@ -97,6 +97,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     }
+  })
+  .state('tab.search', {
+    url: '/user/search', // url: '/:userId/wishlist'
+    views: {
+      'tab-search': {
+        templateUrl: 'templates/search.html',
+        controller: 'SearchCtrl',
+        access: {
+          requiresLogin: true
+        }
+      }
+    }
   });
 
 

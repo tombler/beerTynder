@@ -169,6 +169,7 @@ $scope.login = function() {
   
 }]) 
 
+
 .controller('ExploreCtrl', ["$scope", "$stateParams", "$http", "PROXY", "$firebaseArray", "storage", function($scope, $stateParams, $http, PROXY, $firebaseArray, storage){
 
   $scope.userId = storage.get("userId");
@@ -220,6 +221,7 @@ $scope.login = function() {
   }
 
   $scope.saveToWishlist = function () {
+    console.log("swiped");
     console.log($scope.beer);
 
     var ref = new Firebase("https://beertynder.firebaseio.com/users");
@@ -243,6 +245,23 @@ $scope.login = function() {
 
       })
 
+    runAjaxCall();
+  }
+
+  $scope.discard = function(){
+    runAjaxCall();
+  }
+
+  $scope.saveToMyBeers = function () {
+    console.log($scope.beer);
+
+    var ref = new Firebase("https://beertynder.firebaseio.com/myBeers");
+    $scope.myBeers = $firebaseArray(ref);
+    console.log($scope.myBeers);
+    $scope.myBeers.$add($scope.beer)
+      .then(function (data) {
+        console.log("Beer added to myBeers: ", data);
+      });
     runAjaxCall();
   }
   
@@ -360,6 +379,20 @@ $scope.login = function() {
   $scope.users = $firebaseArray(ref);
 
 }])
+
+.controller('SearchCtrl', function($scope, $stateParams, $http, PROXY, $firebaseArray){
+  $scope.userInput = "";
+
+  $scope.search = function(){
+    console.log("$scope.userInput", $scope.userInput);
+    $http.get(PROXY.url + "/search/?&key=124796ba126c92f04f87e154a597c112&format=json&type=beer&q="+$scope.userInput).
+    then(function(data) {///search?q=Goosinator&type=beer
+      console.log(data);
+      $scope.results = data.data.data;
+      console.log("results", $scope.results);
+    });
+  }
+})
 
 
 

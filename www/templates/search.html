@@ -1,0 +1,19 @@
+<ion-view view-title="Search">
+  <ion-content>
+  <label class="item item-input">
+    <span class="input-label">Search</span>
+    <input type="text" ng-model="$parent.userInput">
+  </label>
+  <button class="button" ng-click="search()">Search</button>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right wishlistBeer" ng-repeat="beer in results" type="item-text-wrap">
+        <img src="{{beer.labelMedium}}" width="100px" alt="beer picture here">
+        <h2>{{beer.name}}</h2>
+        <p>{{beer.brewery}}</p>
+        <p><strong>ABV: </strong>{{beer.abv}}</p>
+        <button class="button" ng-click="addToMyBeers(beer)">Add to myBeers</button>
+        <button class="button" ng-click="addToWishlist(beer)">Add to Wishlist</button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

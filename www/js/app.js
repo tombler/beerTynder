@@ -118,6 +118,18 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
         }
       }
     }
+  })
+  .state('tab.search', {
+    url: '/user/search', // url: '/:userId/wishlist'
+    views: {
+      'tab-search': {
+        templateUrl: 'templates/search.html',
+        controller: 'SearchCtrl',
+        access: {
+          requiresLogin: true
+        }
+      }
+    }
   });
 
 

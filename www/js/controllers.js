@@ -380,16 +380,18 @@ angular.module('starter.controllers', ['firebase'])
 
 }])
 
-.controller('SearchCtrl', ['$scope', '$firebaseArray', '$stateParams', function($scope, $firebaseArray, $stateParams){
+.controller('SearchCtrl', function($scope, $stateParams, $http, PROXY, $firebaseArray){
   $scope.userInput = "";
 
   $scope.search = function(){
-    $http.get(PROXY.url + "/beer/random/?key=124796ba126c92f04f87e154a597c112&format=json&hasLabels=Y&withBreweries=Y").
-    then(function(data) {
-
+    console.log("clicked");
+    $http.get(PROXY.url + "/search/?&key=124796ba126c92f04f87e154a597c112&format=json&type=beer&q=Goosinator").
+    then(function(data) {///search?q=Goosinator&type=beer
+      console.log(data);
+      $scope.results = data;
     });
   }
-}])
+})
 
 
 

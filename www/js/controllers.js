@@ -218,6 +218,10 @@ angular.module('starter.controllers', ['firebase'])
 
 .controller('ExploreCtrl', function($scope, $stateParams, $http, PROXY, $firebaseArray){
 
+  $scope.tell = function(message){
+    console.log(message);
+  }
+
   // On page load, run ajax call
   runAjaxCall();
 
@@ -267,6 +271,7 @@ angular.module('starter.controllers', ['firebase'])
   }
 
   $scope.saveToWishlist = function () {
+    console.log("swiped");
     console.log($scope.beer);
 
     var ref = new Firebase("https://beertynder.firebaseio.com/wishlist");

@@ -1,7 +1,5 @@
 <ion-view view-title="Explore Beers">
-    <div class="list card" on-swipe-right="saveToWishlist()">
-<!--  on-swipe-right="saveToWishlist()" -->
-<!--  ng-click="saveToWishlist()" -->
+    <div class="list card" on-swipe-right="saveToWishlist()" on-swipe-left="discard()">
       <div class="item item-avatar">
        <!--  <img src="mcfly.jpg"> -->
         <h2>{{beer.name}}</h2>

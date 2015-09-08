@@ -284,6 +284,10 @@ angular.module('starter.controllers', ['firebase'])
 
     runAjaxCall();
   }
+
+  $scope.discard = function(){
+    runAjaxCall();
+  }
   
 })
 

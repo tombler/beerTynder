@@ -9,7 +9,7 @@
 
           <div class="item item-avatar">
             
-            <img src="{{beerDetail.labelIcon}}">
+            <img src="{{beerDetail.labels.large || beerDetail.labelLarge}}">
             <h2>{{beerDetail.name}}</h2>
             <p>{{beerDetail.brewery}}</p>
             <p><strong>ABV: </strong>{{beerDetail.abv}}</p>
@@ -17,7 +17,7 @@
           </div>
 
           <div class="item item-body">
-            <img src="{{beerDetail.labelMedium}}">
+            <img src="{{beerDetail.labels.Medium ||beerDetail.labelMedium}}">
             <p>
               <strong>Description: </strong>{{beerDetail.description}}
             </p>

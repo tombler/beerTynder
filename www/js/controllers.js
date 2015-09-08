@@ -358,11 +358,8 @@ $scope.login = function() {
               $scope.myBeers.$add(beerDetail)
               .then(function (data) {
                 console.log("Beer added to myBeers: ", data);
-              })
-              
-         } else {
-           // console.log("error", error);
-         }
+              })   
+         } 
         }
       });
 
@@ -393,6 +390,55 @@ $scope.login = function() {
       console.log("results", $scope.results);
     });
   }
+
+  $scope.addToMyBeers = function(beer){
+
+    var ref = new Firebase("https://beertynder.firebaseio.com/users");
+    $scope.users = $firebaseArray(ref);
+
+    $scope.users.$loaded()
+      .then(function (usersArray) {
+        for (var i = 0; i < usersArray.length; i++) {
+         // console.log(users[i])
+         if (usersArray[i].uid === $scope.userId) {
+            // console.log("userId.$id", userId.$id);
+
+            var ref = new Firebase('https://beertynder.firebaseio.com/users/' + usersArray[i].$id + '/myBeers/');
+            $scope.myBeers = $firebaseArray(ref);
+
+              $scope.myBeers.$add(beer)
+              .then(function (data) {
+                console.log("Beer added to myBeers: ", data);
+              })   
+         } 
+        }
+      });
+  }
+
+  $scope.addToWishlist = function(beer){
+
+  var ref = new Firebase("https://beertynder.firebaseio.com/users");
+  $scope.users = $firebaseArray(ref);
+
+  $scope.users.$loaded()
+    .then(function (usersArray) {
+      for (var i = 0; i < usersArray.length; i++) {
+       // console.log(users[i])
+       if (usersArray[i].uid === $scope.userId) {
+          // console.log("userId.$id", userId.$id);
+
+          var ref = new Firebase('https://beertynder.firebaseio.com/users/' + usersArray[i].$id + '/wishlist/');
+          $scope.wishlist = $firebaseArray(ref);
+
+            $scope.wishlist.$add(beer)
+            .then(function (data) {
+              console.log("Beer added to Wishlist: ", data);
+            })   
+       } 
+      }
+    });
+  }
+  
 })
 
 

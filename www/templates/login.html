@@ -1,9 +1,11 @@
-<ion-view ng-controller="LoginCtrl" title="Beer Tynder">
-  <ion-content>
-    <div ng-hide="authData" class="padding" ng-click="login()">
-      <button class="item button button-block button-positive">
-      Facebook Login
-      </button>
-    </div>
-  </ion-content>
+<ion-view view-title="Welcome to BeerTynder">  
+  <div ng-controller="LoginCtrl">
+    <ion-content has-header="true" padding="true">
+      
+        <div ng-hide="authData" ng-click="login()" class="social-wrap">
+          <button id="facebook">Sign in with Facebook</button>
+        </div>
+      
+    </ion-content>
+  </div>
 </ion-view>

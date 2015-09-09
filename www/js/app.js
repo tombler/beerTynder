@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'firebase'])
+angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -20,8 +20,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
-  });
+  })
 })
+
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -31,11 +32,40 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   // Each state's controller can be found in controllers.js
   $stateProvider
 
+  .state('login', {
+    url: '/', //url: '/:userId/home',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl'
+    // data: {
+    //    requiresLogin: true
+    // }
+  })
+
+  .state('tab.login', {
+    url: '/login', //url: '/:userId/home',
+    views: {
+      'tab-login': {
+        templateUrl: 'templates/login.html',
+        controller: 'LoginCtrl'
+      }
+    }
+  })
+
   // setup an abstract state for the tabs directive
+  .state('redirect', {
+    url: '/&__firebase_request_key=:requestkey',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl',
+    data: {
+       requiresLogin: false
+    }
+  })
+
   .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'templates/tabs.html'
+    templateUrl: 'templates/tabs.html',
+    controller: 'LandingCtrl'
   })
 
   // Each tab has its own nav history stack:
@@ -51,33 +81,67 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
 
   .state('tab.landing', {
-    url: '/user/home', //url: '/:userId/home',
+    url: '/:userId/home', //url: '/:userId/home',
     views: {
       'tab-home': {
         templateUrl: 'templates/landing.html',
-        controller: 'LandingCtrl'
+        controller: 'LandingCtrl',
+        access: {
+            requiresLogin: true
+        }
       }
     }
   })
 
   .state('tab.explore', {
-      url: '/user/explore', // url: '/:userId/explore',
-      views: {
-        'tab-explore': {
-          templateUrl: 'templates/explore.html',
-          controller: 'ExploreCtrl'
+    url: '/:userId/explore', // url: '/:userId/explore',
+    views: {
+      'tab-explore': {
+        templateUrl: 'templates/explore.html',
+        controller: 'ExploreCtrl',
+        access: {
+          requiresLogin: true
         }
       }
-    })
-    .state('tab.wishlist', {
-      url: '/user/wishlist', // url: '/:userId/wishlist'
-      views: {
-        'tab-wishlist': {
-          templateUrl: 'templates/wishlist.html',
-          controller: 'WishlistCtrl'
+    }
+  })
+  .state('tab.wishlist', {
+    url: '/:userId/wishlist', // url: '/:userId/wishlist'
+    views: {
+      'tab-wishlist': {
+        templateUrl: 'templates/wishlist.html',
+        controller: 'WishlistCtrl',
+        access: {
+          requiresLogin: true
         }
       }
-    });
+    }
+  })
+  .state('tab.social', {
+    url: '/:userId/social', // url: '/:userId/wishlist'
+    views: {
+      'tab-social': {
+        templateUrl: 'templates/social.html',
+        controller: 'SocialCtrl',
+        access: {
+          requiresLogin: true
+        }
+      }
+    }
+  })
+  .state('tab.search', {
+    url: '/user/search', // url: '/:userId/wishlist'
+    views: {
+      'tab-search': {
+        templateUrl: 'templates/search.html',
+        controller: 'SearchCtrl',
+        access: {
+          requiresLogin: true
+        }
+      }
+    }
+  });
+
 
   // $urlRouterProvider.otherwise('/tab/user/home'); // 'tab/:userId/home'
 

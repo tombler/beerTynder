@@ -5,24 +5,29 @@ navigation history that also transitions its views in and out.
 -->
 <ion-tabs class="tabs-icon-top tabs-color-active-positive">
 
-  <!-- Login Tab -->
-  <ion-tab title="Login" icon-off="ion-login" icon-on="ion-login" href="#/tab/login">
-    <ion-nav-view name="tab-login"></ion-nav-view>
-  </ion-tab>
-
-  <!-- Dashboard Tab -->
-  <ion-tab title="My Beers" icon-off="ion-home" icon-on="ion-home" href="#/tab/user/home">
+  <!-- MyBeers Tab -->
+  <ion-tab title="My Beers" icon-off="ion-beer" icon-on="ion-beer" href="#/tab/{{userId}}/home">
     <ion-nav-view name="tab-home"></ion-nav-view>
   </ion-tab>
 
-  <!-- Chats Tab -->
-  <ion-tab title="Explore" icon-off="ion-ios-world" icon-on="ion-ios-world" href="#/tab/user/explore">
+  <!-- Explore Tab -->
+  <ion-tab title="Explore" icon-off="ion-ios-world" icon-on="ion-ios-world" href="#/tab/{{userId}}/explore">
     <ion-nav-view name="tab-explore"></ion-nav-view>
   </ion-tab>
 
   <!-- Wishlist Tab -->
-  <ion-tab title="Wishlist" icon-off="ion-star" icon-on="ion-star" href="#/tab/user/wishlist">
+  <ion-tab title="Wishlist" icon-off="ion-ios-color-wand-outline" icon-on="ion-ios-color-wand-outline" href="#/tab/{{userId}}/wishlist">
     <ion-nav-view name="tab-wishlist"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Social Tab -->
+  <ion-tab title="Social" icon-off="ion-person-stalker" icon-on="ion-person-stalker" href="#/tab/{{userId}}/social">
+    <ion-nav-view name="tab-social"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Search Tab -->
+  <ion-tab title="Search" icon-off="ion-search" icon-on="ion-search" href="#/tab/user/search">
+    <ion-nav-view name="tab-search"></ion-nav-view>
   </ion-tab>
 
 </ion-tabs>

@@ -1,0 +1,46 @@
+<ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">Details</h1>
+      <button class="button" ng-click="modal.hide()">Close</button>
+    </ion-header-bar>
+    <ion-content>
+
+      <div class="list card">
+
+          <div class="item item-avatar">
+            
+            <img src="{{thisUser.profilePic}}">
+            <h1><strong>{{thisUser.name}}</strong></h1>
+          </div>
+
+          <div class="item item-body">
+
+            <div class="list">
+
+              <div class="item item-divider">
+                <strong>{{firstName}}'s Beers: </strong>
+              </div>
+              <div class="item item-button-right" ng-repeat="beer in thisUser.myBeers" ng-click="seeBeerDetails(beer)">
+                {{beer.name}}
+                <button class="button button-positive" ng-click="addToWishlist(beer)">
+                  <i class="icon ion-ios-plus"></i>
+                </button>
+              </div>
+
+              <div class="item item-divider">
+                <strong>{{firstName}}'s Wishlist: </strong>
+              </div>
+              <div class="item item-button-right" ng-repeat="beer in thisUser.wishlist" ng-click="seeBeerDetails(beer)">
+                {{beer.name}}
+                <button class="button button-positive" ng-click="addToWishlist(beer)">
+                  <i class="icon ion-ios-plus"></i>
+                </button>
+              </div>
+              
+            </div>
+  
+          </div>
+
+        </div>
+    </ion-content>
+</ion-modal-view>

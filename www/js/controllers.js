@@ -400,6 +400,14 @@ $scope.login = function() {
     then(function(data) {///search?q=Goosinator&type=beer
       console.log(data);
       $scope.results = data.data.data;
+      for (var key in $scope.results) {
+        for(var i=0; i<$scope.results.length; i++){
+          console.log($scope.results[key][i]);
+          // if ($scope.results[key][i] === undefined || $scope.results[key][i] === (undefined + "%")) {
+          //   $scope.results[key][i] = "Not available.";
+          // }
+        }
+      }
       console.log("results", $scope.results);
     });
   }

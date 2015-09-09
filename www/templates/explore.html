@@ -14,21 +14,17 @@
         <p>
           {{beer.description}}
         </p>
-        <p>
-          <a href="#" class="subdued">Likes</a>
-          <a href="#" class="subdued">Comments</a>
-        </p>
       </div>
 
-      <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="fb-like tab-item" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false">
+      <div class="fbButtons item tabs tabs-secondary tabs-icon-left has tabs">
+        <a class="fb-like tab-item" data-href="https://www.creed.com" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
           Like
         </a>
-        <a class="fb-share-button tab-item" 
+<!--         <a class="fb-share-button tab-item" 
         data-href="http://www.your-domain.com/your-page.html" 
         data-layout="button_count">
           Share
-        </a>
+        </a> -->
       </div>
 
       <button class="button button-block button-positive" ng-click="saveToMyBeers()">Done drunk it already</button>

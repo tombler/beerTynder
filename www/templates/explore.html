@@ -1,4 +1,5 @@
 <ion-view view-title="Explore Beers">
+  <ion-content>
     <div class="list card" on-swipe-right="saveToWishlist()" on-swipe-left="discard()">
       <div class="item item-avatar">
        <!--  <img src="mcfly.jpg"> -->
@@ -20,16 +21,12 @@
       </div>
 
       <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" href="#">
-          <i class="icon ion-thumbsup"></i>
+        <a class="fb-like tab-item" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false">
           Like
         </a>
-        <a class="tab-item" href="#">
-          <i class="icon ion-chatbox"></i>
-          Comment
-        </a>
-        <a class="tab-item" href="#">
-          <i class="icon ion-share"></i>
+        <a class="fb-share-button tab-item" 
+        data-href="http://www.your-domain.com/your-page.html" 
+        data-layout="button_count">
           Share
         </a>
       </div>
@@ -37,4 +34,5 @@
       <button class="button button-block button-positive" ng-click="saveToMyBeers()">Done drunk it already</button>
 
     </div>
+  </ion-content>
 </ion-view>

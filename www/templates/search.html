@@ -9,6 +9,7 @@
       <ion-item class="item-remove-animate item-avatar item-icon-right wishlistBeer" ng-repeat="beer in results" type="item-text-wrap">
         <img src="{{beer.labels.icon}}" width="100px" alt="beer picture here">
         <h2>{{beer.nameDisplay}}</h2>
+        <h4>Brewery: {{beer.breweries[0].name}}
         <p><strong>Style: </strong> {{beer.style.name}}</p>
         <p><strong>ABV: </strong>{{beer.abv}} <strong>IBU: </strong>{{beer.ibu}}</p> 
         <button class="button" ng-click="addToMyBeers(beer)">Add to myBeers</button>

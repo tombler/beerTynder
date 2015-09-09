@@ -256,13 +256,27 @@ $scope.login = function() {
   $scope.saveToMyBeers = function () {
     console.log($scope.beer);
 
-    var ref = new Firebase("https://beertynder.firebaseio.com/myBeers");
-    $scope.myBeers = $firebaseArray(ref);
-    console.log($scope.myBeers);
-    $scope.myBeers.$add($scope.beer)
-      .then(function (data) {
-        console.log("Beer added to myBeers: ", data);
+    var ref = new Firebase("https://beertynder.firebaseio.com/users");
+    $scope.users = $firebaseArray(ref);
+
+    $scope.users.$loaded()
+      .then(function (usersArray) {
+        for (var i = 0; i < usersArray.length; i++) {
+         // console.log(users[i])
+         if (usersArray[i].uid === $scope.userId) {
+            // console.log("userId.$id", userId.$id);
+
+            var ref = new Firebase('https://beertynder.firebaseio.com/users/' + usersArray[i].$id + '/myBeers/');
+            $scope.myBeers = $firebaseArray(ref);
+
+              $scope.myBeers.$add($scope.beer)
+              .then(function (data) {
+                console.log("Beer added to myBeers: ", data);
+              })   
+         } 
+        }
       });
+
     runAjaxCall();
   }
   
@@ -383,7 +397,7 @@ $scope.login = function() {
 
   $scope.search = function(){
     console.log("$scope.userInput", $scope.userInput);
-    $http.get(PROXY.url + "/search/?&key=124796ba126c92f04f87e154a597c112&format=json&type=beer&q="+$scope.userInput).
+    $http.get(PROXY.url + "/search/?&key=124796ba126c92f04f87e154a597c112&format=json&type=beer&withBreweries=Y&q="+$scope.userInput).
     then(function(data) {///search?q=Goosinator&type=beer
       console.log(data);
       $scope.results = data.data.data;

@@ -22,25 +22,25 @@
               <strong>Description: </strong>{{beerDetail.description}}
             </p>
             <p>
-              <strong>Style: </strong>{{beerDetail.style}}
+              <strong>Style: </strong>{{beerDetail.style.name || beerDetail.style}}
             </p>
-            <p>
+<!--             <p>
                 <strong>Style Details: </strong>{{beerDetail.styleDescrip}}
-            </p>
+            </p> -->
             <p>
               <strong>Food Pairings: </strong>{{beerDetail.foodPairings}}
             </p>
             <p>
-              <strong>Organic? </strong>{{beerDetail.organic}}
+              <strong>Organic? </strong>{{beerDetail.organic || beerDetail.isOrganic}}
             </p>
             <p>
-              <strong>Brewery Website: </strong><a href="{{beerDetail.breweryWebsite}}">{{beerDetail.breweryWebsite}}</a>
+              <strong>Brewery Name: </strong>{{beerDetail.breweryType || beerDetail.breweries[0].name}} 
             </p>
             <p>
-              <strong>Brewery Type: </strong>{{beerDetail.breweryType}} 
+              <strong>Brewery Website: </strong><a href="{{beerDetail.breweryWebsite || beerDetail.breweries[0].locations[0].website}}">{{beerDetail.breweryWebsite || beerDetail.breweries[0].locations[0].website}}</a>
             </p>
             <p>
-                <strong>Location: </strong>{{beerDetail.breweryLoc}}, {{beerDetail.breweryCountry}}
+                <strong>Location: </strong>{{beerDetail.breweryLoc || beerDetail.breweries[0].locations[0].locality}}, {{beerDetail.breweryCountry || beerDetail.breweries[0].locations[0].region}}
             </p>
             <button class="button button-block button-positive" ng-disabled="isDisabled" ng-click="saveToMyBeers(beerDetail)">
               {{addButtonText}}

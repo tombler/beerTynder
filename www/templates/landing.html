@@ -9,7 +9,7 @@
         <p>{{beer.brewery}}</p>
         <p><strong>ABV: </strong>{{beer.abv}}</p>
         <p><strong>IBUs: </strong>{{beer.ibu}}</p>
-        <div beer-rating rating-value="beer.rating" max="10" on-rating-selected="saveRatingToFirebase(beer, rating)"></div>
+        <div beer-rating rating-value="beer.rating" max="5" on-rating-selected="saveRatingToFirebase(beer, rating)"></div>
         <i class="icon ion-chevron-right icon-accessory">See Details</i>
        </ion-item>
      </ion-list>

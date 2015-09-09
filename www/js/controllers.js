@@ -27,15 +27,14 @@ angular.module('starter.controllers', ['firebase'])
    var authData = ref.getAuth();
 
    if (authData === null) {
-    // console.log(authData);
-    //  ref.$authWithOAuthPopup(loginType)
-    //    .then(function (authData) {
-    //      storage.set("userId", authData.uid);
-    //      // $location.url('/users/' + authData.uid);
-    //    })
-    //    .catch(function(error) {
-    //      console.log("Authentication failed:", error);
-    //    });
+     // ref.$authWithOAuthPopup(loginType)
+     //   .then(function (authData) {
+     //     storage.set("userId", authData.uid);
+     //     // $location.url('/users/' + authData.uid);
+     //   })
+     //   .catch(function(error) {
+     //     console.log("Authentication failed:", error);
+     //   });
      } else {
        storage.set("userId", authData.uid);
      }

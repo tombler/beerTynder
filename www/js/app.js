@@ -70,16 +70,6 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 
   // Each tab has its own nav history stack:
 
-  .state('tab.login', {
-    url: '/login', 
-    views: {
-      'tab-login': {
-        templateUrl: 'templates/login.html',
-        controller: 'LoginCtrl'
-      }
-    }
-  })
-
   .state('tab.landing', {
     url: '/:userId/home', //url: '/:userId/home',
     views: {
@@ -142,7 +132,6 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
     }
   });
 
-
-  // $urlRouterProvider.otherwise('/tab/user/home'); // 'tab/:userId/home'
+  $urlRouterProvider.otherwise('/'); // 'tab/:userId/home'
 
 });

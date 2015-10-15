@@ -4,99 +4,160 @@ angular.module('starter.controllers', ['firebase'])
   url: 'http://localhost:1337/api.brewerydb.com/v2'
 })
 
-.factory('storage', function () {
-    var bucket = {};
+// .factory('storage', function () {
+//     var bucket = {};
 
-    return {
-        get: function (junk) {
-            if (bucket.hasOwnProperty(junk)) {
-                return bucket[junk];
-            }
-        },
-        set: function (key, value) {
-            bucket[key] = value;
-        }
-    };
-})
+//     return {
+//         get: function (junk) {
+//             if (bucket.hasOwnProperty(junk)) {
+//                 return bucket[junk];
+//             }
+//         },
+//         set: function (key, value) {
+//             bucket[key] = value;
+//         }
+//     };
+// })
 
-.run(['storage', function(storage) {
-   var ref = new Firebase("https://beertynder.firebaseio.com/");
-   console.log("auth response", ref.getAuth());
+// .run(['storage', function(storage) {
+//    var ref = new Firebase("https://beertynder.firebaseio.com/");
+//    console.log("auth response", ref.getAuth());
 
-   // auth = $firebaseAuth(ref);
-   var authData = ref.getAuth();
+//    // auth = $firebaseAuth(ref);
+//    var authData = ref.getAuth();
 
-   if (authData === null) {
-     // ref.$authWithOAuthPopup(loginType)
-     //   .then(function (authData) {
-     //     storage.set("userId", authData.uid);
-     //     // $location.url('/users/' + authData.uid);
-     //   })
-     //   .catch(function(error) {
-     //     console.log("Authentication failed:", error);
-     //   });
-     } else {
-       storage.set("userId", authData.uid);
-     }
-}])
+//    if (authData === null) {
+//      // ref.$authWithOAuthPopup(loginType)
+//      //   .then(function (authData) {
+//      //     storage.set("userId", authData.uid);
+//      //     // $location.url('/users/' + authData.uid);
+//      //   })
+//      //   .catch(function(error) {
+//      //     console.log("Authentication failed:", error);
+//      //   });
+//      } else {
+//        storage.set("userId", authData.uid);
+//      }
+// }])
 
-.factory("Auth", function($firebaseAuth) {
- var usersRef = new Firebase("https://beertynder.firebaseio.com/");
- return $firebaseAuth(usersRef);
-})
+// .factory("Auth", function($firebaseAuth) {
+//  var usersRef = new Firebase("https://beertynder.firebaseio.com/");
+//  return $firebaseAuth(usersRef);
+// })
 
-.controller('LoginCtrl', ['$scope', 'storage', "$location",  "Auth", "$firebaseArray", function ($scope, storage, $location, Auth, $firebaseArray) {
-// console.log("het")
-$scope.login = function() {
-   Auth.$authWithOAuthPopup("facebook")
-     .then(function (authData) {
-       if (authData !== null) {
-         console.log(authData);
-         storage.set("userId", authData.uid);
+.controller('LoginCtrl', ['$scope', "$state",  "Auth", "$firebaseArray", function ($scope, $state, Auth, $firebaseArray) {
+// // console.log("het")
+// $scope.login = function() {
+//    Auth.$authWithOAuthPopup("facebook")
+//      .then(function (authData) {
+//        if (authData !== null) {
+//          console.log(authData);
+//          storage.set("userId", authData.uid);
          var ref = new Firebase('https://beertynder.firebaseio.com/users');
          $scope.users = $firebaseArray(ref);
          
-         
-         $scope.users.$loaded()
-           .then(function (users) {
-             var userExists = 0;
-             for (var i = 0; i < users.length; i++) {
-               // console.log(users[i])
-               if (users[i].uid === authData.uid) {
-                 userExists = 1;
-               } else {
-                 console.log("New user: ", users[i].uid);
-               }
+//          $scope.users.$loaded()
+//            .then(function (users) {
+//              var userExists = 0;
+//              for (var i = 0; i < users.length; i++) {
+//                // console.log(users[i])
+//                if (users[i].uid === authData.uid) {
+//                  userExists = 1;
+//                } else {
+//                  console.log("New user: ", users[i].uid);
+//                }
                
-             }
-             console.log(userExists);
-             if (userExists === 0) {
-               $scope.users.$add({
-                 "name": authData.facebook.displayName,
-                 "profilePic": authData.facebook.profileImageURL,
-                 "uid": authData.uid,
-                 "myBeers": [],
-                 "wishlist": []
-               })
-             }
-           })
+//              }
+//              console.log(userExists);
+//              if (userExists === 0) {
+//                $scope.users.$add({
+//                  "name": authData.facebook.displayName,
+//                  "profilePic": authData.facebook.profileImageURL,
+//                  "uid": authData.uid,
+//                  "myBeers": [],
+//                  "wishlist": []
+//                })
+//              }
+//            })
          
 
-         $location.path('tab/'+ authData.uid + '/home');
-       }
-     });
- };
-}])
- 
+//          $location.path('tab/'+ authData.uid + '/home');
+//        }
+//      });
+//  };
 
-.controller('LandingCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicModal', 'storage', '$location', function($scope, $stateParams, $firebaseArray, $ionicModal, storage, $location) {
-  // console.log('hello');
-  $scope.userId = storage.get("userId");
+
+    // FB Login
+    $scope.fbLogin = function () {
+        FB.login(function (response) {
+            if (response.authResponse) {
+                getUserInfo();
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        }, {scope: 'email,user_photos,user_videos'});
+
+        function getUserInfo() {
+            // get basic info
+            FB.api('/me', function (response) {
+                console.log('Facebook Login RESPONSE: ' + angular.toJson(response));
+                // get profile picture
+                FB.api('/me/picture?type=normal', function (picResponse) {
+                    console.log('Facebook Login RESPONSE: ' + picResponse.data.url);
+                    response.imageUrl = picResponse.data.url;
+                    // store data to DB - Call to API
+                    // Todo
+                    // After posting user data to server successfully store user data locally
+                    var user = {};
+                    user.name = response.name;
+                    user.email = response.email;
+                    if(response.gender) {
+                        response.gender.toString().toLowerCase() === 'male' ? user.gender = 'M' : user.gender = 'F';
+                    } else {
+                        user.gender = '';
+                    }
+                    user.profilePic = picResponse.data.url;
+                    window.localStorage.setItem('userId', response.id);
+
+                    $scope.users.$loaded()
+                      .then(function (users) {
+                       var userExists = 0;
+                       for (var i = 0; i < users.length; i++) {
+                         // console.log(users[i])
+                         if (users[i].uid === response.id) {
+                           userExists = 1;
+                         } else {
+                           console.log("New user: ", users[i].uid);
+                         }
+                         
+                       }
+                       console.log(userExists);
+                       if (userExists === 0) {
+                         $scope.users.$add({
+                           "name": user.name,
+                           "profilePic": user.profilePic,
+                           "uid": response.id,
+                           "myBeers": [],
+                           "wishlist": []
+                         })
+                       }
+                      })
+
+                    $state.go('tab.landing');
+
+                });
+            });
+        }
+    };
+    // END FB Login
+}]) 
+
+.controller('LandingCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicModal', '$location', function($scope, $stateParams, $firebaseArray, $ionicModal, $location) {
+  
+  $scope.userId = window.localStorage.getItem("userId");
 
   $scope.isDisabled = true;
   $scope.addButtonText = "Added";
-
-
 
   var ref = new Firebase("https://beertynder.firebaseio.com/users");
     $scope.users = $firebaseArray(ref);
@@ -170,9 +231,9 @@ $scope.login = function() {
 }]) 
 
 
-.controller('ExploreCtrl', ["$scope", "$stateParams", "$http", "PROXY", "$firebaseArray", "storage", function($scope, $stateParams, $http, PROXY, $firebaseArray, storage){
+.controller('ExploreCtrl', ["$scope", "$stateParams", "$http", "PROXY", "$firebaseArray", function($scope, $stateParams, $http, PROXY, $firebaseArray){
 
-  $scope.userId = storage.get("userId");
+  $scope.userId = window.localStorage.getItem("userId");
   // On page load, run ajax call
   runAjaxCall();
 
@@ -282,9 +343,9 @@ $scope.login = function() {
 }])
 
 
-.controller('WishlistCtrl', ['$scope', '$firebaseArray', '$stateParams', '$ionicModal', "storage", function($scope, $firebaseArray, $stateParams, $ionicModal, storage){
+.controller('WishlistCtrl', ['$scope', '$firebaseArray', '$stateParams', '$ionicModal', function($scope, $firebaseArray, $stateParams, $ionicModal){
   // console.log("Yo");
-  $scope.userId = storage.get("userId");
+  $scope.userId = window.localStorage.getItem("userId");
   $scope.addButtonText = "Add To My Beers";
 
 

@@ -1,16 +1,15 @@
-<ion-view view-title="BeerTynder">
+<ion-view view-title="Beers I've Tasted">
   
    <ion-content>
      <ion-list>
-       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="beer in userBeers" type="item-text-wrap" href="#/tab/{{userId}}/home" ng-click="seeBeerDetails(beer)"> 
-       <!-- WHen MVP is done: route each href to tab/user/:beerId -->
+       <ion-item class="item-remove-animate item-avatar item-icon-right card" ng-repeat="beer in userBeers" type="item-text-wrap" href="#/tab/{{userId}}/home" ng-click="seeBeerDetails(beer)"> 
         <img src="{{beer.labels.icon || beer.labelIcon}}">
-        <h2>{{beer.name}}</h2>
-        <p>{{beer.brewery}}</p>
+        <h2><strong>{{beer.name}}</strong></h2>
+        <p>{{beer.breweries[0].name}}</p>
         <p><strong>ABV: </strong>{{beer.abv}}</p>
         <p><strong>IBUs: </strong>{{beer.ibu}}</p>
         <div beer-rating rating-value="beer.rating" max="5" on-rating-selected="saveRatingToFirebase(beer, rating)"></div>
-        <i class="icon ion-chevron-right icon-accessory">See Details</i>
+        <i class="icon ion-chevron-right icon-accessory"></i>
        </ion-item>
      </ion-list>
    </ion-content>

@@ -1,10 +1,3 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
@@ -26,23 +19,16 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
 
   .state('login', {
-    url: '/', //url: '/:userId/home',
+    url: '/',
     templateUrl: 'templates/login.html',
     controller: 'LoginCtrl'
-    // data: {
-    //    requiresLogin: true
-    // }
   })
 
   .state('tab.login', {
-    url: '/login', //url: '/:userId/home',
+    url: '/login',
     views: {
       'tab-login': {
         templateUrl: 'templates/login.html',
@@ -50,7 +36,6 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
       }
     }
   })
-
   // setup an abstract state for the tabs directive
   .state('redirect', {
     url: '/&__firebase_request_key=:requestkey',
@@ -68,10 +53,8 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
     controller: 'LandingCtrl'
   })
 
-  // Each tab has its own nav history stack:
-
-  .state('tab.landing', {
-    url: '/:userId/home', //url: '/:userId/home',
+  .state('tab.home', {
+    url: '/:userId/home',
     views: {
       'tab-home': {
         templateUrl: 'templates/landing.html',
@@ -84,7 +67,7 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
   })
 
   .state('tab.explore', {
-    url: '/:userId/explore', // url: '/:userId/explore',
+    url: '/:userId/explore',
     views: {
       'tab-explore': {
         templateUrl: 'templates/explore.html',
@@ -95,8 +78,9 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
       }
     }
   })
+
   .state('tab.wishlist', {
-    url: '/:userId/wishlist', // url: '/:userId/wishlist'
+    url: '/:userId/wishlist',
     views: {
       'tab-wishlist': {
         templateUrl: 'templates/wishlist.html',
@@ -107,8 +91,9 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
       }
     }
   })
+
   .state('tab.social', {
-    url: '/:userId/social', // url: '/:userId/wishlist'
+    url: '/:userId/social',
     views: {
       'tab-social': {
         templateUrl: 'templates/social.html',
@@ -119,8 +104,9 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
       }
     }
   })
+
   .state('tab.search', {
-    url: '/user/search', // url: '/:userId/wishlist'
+    url: '/:userId/search',
     views: {
       'tab-search': {
         templateUrl: 'templates/search.html',
@@ -132,6 +118,6 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
     }
   });
 
-  $urlRouterProvider.otherwise('/'); // 'tab/:userId/home'
+  $urlRouterProvider.otherwise('/');
 
 });

@@ -1,3 +1,59 @@
+/** Login Page **/
+
+.homeImg {
+  background: url('https://images.unsplash.com/photo-1416453072034-c8dbfa2856b5?ixlib=rb-0.3.5&q=80&fm=jpg&s=d1948dc8e0c0d814431f58ac8aeef764');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+h3.login_welcome {
+  font-family: fantasy;
+  font-size: 2.8em;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  margin-top: 1.3em;
+}
+div.login_button{
+  text-align: center;
+  margin-top: 10em;
+}
+
+div.login_button > a {
+  font-family: fantasy;
+  font-weight: 900;
+  font-size: 2em;
+  color: white;
+  text-shadow: 2px 2px black;
+  text-decoration: none;
+}
+
+/** Explore Page **/
+h3.explore_header {
+  font-family: fantasy;
+  font-size: 1.2em;
+  font-weight: 700;
+  text-align: center;
+  word-wrap: normal|break-word|initial|inherit;
+}
+.explore_back {
+  background: url('http://res.freestockphotos.biz/pictures/10/10240-an-empty-brown-beer-bottle-isolated-on-a-white-background-pv.jpg');
+  /*background: url('http://glutenwheatfree.com/wp-content/uploads/2009/12/iStock_000008634271Small.jpg');*/
+  background-repeat: no-repeat;
+  background-size: contain;
+/*  background-size: cover;*/
+  background-position: bottom;
+  padding-top: -1em;
+  height: 32em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.explore_back > img {
+  margin-top: 13em;
+  margin-bottom: 3em;
+}
 
 /** star rating  **/
 .rating{
@@ -21,39 +77,4 @@ ul.rating {
 
 .rating .filled {
   color: #21568b;
-}
-
-@import url(http://fonts.googleapis.com/css?family=Merriweather+Sans);
- div.social-wrap button {
-    padding-right: 45px;
-    height: 35px;
-    background: none;
-    border: none;
-    display: block;
-    background-size: 35px 35px;
-    background-position: right center;
-    background-repeat: no-repeat;
-    border-radius: 4px;
-    color: white;
-    font-family:"Merriweather Sans", sans-serif;
-    font-size: 14px;
-    margin-bottom: 15px;
-    width: 205px;
-    border-bottom: 2px solid transparent;
-    border-left: 1px solid transparent;
-    border-right: 1px solid transparent;
-    box-shadow: 0 4px 2px -2px gray;
-    text-shadow: rgba(0, 0, 0, .5) -1px -1px 0;
-}
-
-button#facebook {
-  border-color: #2d5073;
-  background-color: #3b5998;
-  background-image: url(http://icons.iconarchive.com/icons/danleech/simple/512/facebook-icon.png);
-  margin: 20% auto;
-}
-
-.fbButtons > a {
-  margin-top: -5%;
-  width: 50%;
 }

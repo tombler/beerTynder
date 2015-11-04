@@ -1,19 +1,18 @@
-<ion-view view-title="Explore Beers">
+<ion-view hide-nav-bar="true">
   <ion-content>
     <div class="list card" on-swipe-right="saveToWishlist()" on-swipe-left="discard()">
-      <div class="item item-avatar">
-       <!--  <img src="mcfly.jpg"> -->
-        <h2>{{beer.name}}</h2>
-        <p>{{beer.brewery}}</p>
-        <p><strong>ABV: </strong>{{beer.abv}}</p>
-        <p><strong>Style: </strong>{{beer.style}}</p>
+      <div class="item item-text-wrap">
+        <h3 class="explore_header">{{beer.name}} by {{beer.brewery}}</h3>
+        <!-- <p><strong>ABV: </strong>{{beer.abv}}</p>
+        <p><strong>Style: </strong>{{beer.style}}</p> -->
       </div>
 
-      <div class="item item-body">
+      <div class="item item-body explore_back">
+
         <img src="{{beer.labelMedium}}" width="200px"> <!-- class="full-image" -->
-        <p>
+<!--         <p>
           {{beer.description}}
-        </p>
+        </p> -->
       </div>
 
       <div class="fbButtons item tabs tabs-secondary tabs-icon-left has tabs">

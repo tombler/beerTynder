@@ -1,11 +1,12 @@
-<ion-view view-title="Social">
+<ion-view view-title="Drinking Buddies">
   <ion-content>
     <ion-list>
 <!--       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="user in users" type="item-text-wrap" href="#tab/{{userId}}/explore">     Removed href from redirecting to explore -->
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="user in users" type="item-text-wrap" ng-click="seeUserDetails(user)">
+      <ion-item class="item-remove-animate item-avatar item-icon-right card" ng-repeat="user in users" type="item-text-wrap" ng-click="seeUserDetails(user)">
         <img src="{{user.profilePic}}" width="100px" alt="">
+        <br>
         <h2>{{user.name}}</h2>
-        <i class="icon ion-chevron-right icon-accessory">See User Details</i>
+        <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>
   </ion-content>

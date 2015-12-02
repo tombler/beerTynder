@@ -8,10 +8,10 @@
       <button class="button button-raised button-block icon-right ion-search button-dark" ng-click="search()">Search</button>
     </div>
     <ion-list card>
-      <ion-item class="item-remove-animate item-image card" ng-repeat="beer in results" type="item-text-wrap">
+      <ion-item class="item-remove-animate item-image card search-card" ng-repeat="beer in results" type="item-text-wrap">
         <h2>{{beer.nameDisplay}}</h2>
         <h4>Brewery: {{beer.breweries[0].name}}</h4>
-        <img src="{{beer.labels.medium || 'img/beer_glass.jpg'}}" width="50%" height="50%" alt="beer picture here">
+        <img src="{{beer.labels.medium || 'img/beer_glass.jpg'}}" width="50%" height="50%" alt="beer picture here" class="search-img">
         <p><strong>Style: </strong> {{beer.style.name}}</p>
         <button class="button button-small icon-right ion-beer button-positive" ng-click="addToMyBeers(beer)">Add to myBeers</button>
         <button class="button button-small icon-right ion-ios-color-wand-outline button-balanced" ng-click="addToWishlist(beer)">Add to Wishlist</button>

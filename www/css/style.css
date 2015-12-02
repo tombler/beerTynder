@@ -5,26 +5,48 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  
 }
+
+#title-wrapper {
+background: rgba(255, 255, 255, 0.7);
+margin-top: 8em;
+padding: 40px;
+width: 100%;
+}
+
+.padding {
+  padding: none ! important;
+}
+
 h3.login_welcome {
-  font-family: fantasy;
-  font-size: 2.8em;
+  font-family: 'Raleway', sans-serif;;
+  font-size: 5em;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.7);
+  /*background: rgba(255, 255, 255, 0.7);*/
+  padding-top: 20px;
+  margin: 0 auto;
+}
+
+.homeImg p {
+font-family: 'Roboto', sans-serif;;
+  font-size: 1.5em;
   font-weight: 700;
   color: white;
   text-align: center;
   margin-top: 1.3em;
+  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.7);
+  /*background: rgba(255, 255, 255, 0.7);*/
+  padding-bottom: 20px;
+  margin: 1.3em auto;
 }
-@media screen and (min-width: 1033px) {
-  h3.login_welcome {
-    font-size: 5em;
-    color: white;
-    -webkit-text-stroke: .5px black;
-  }
-}
+
 @media screen and (max-width: 432px) {
   h3.login_welcome {
-    font-size: 2.3em;
-    margin-top: 1.3em;
+    font-size: 3em;
   }
 }
 @media screen and (max-width: 358px) {
@@ -35,16 +57,19 @@ h3.login_welcome {
 }
 div.login_button{
   text-align: center;
-  margin-top: 10em;
 }
 
 div.login_button > a {
-  font-family: fantasy;
-  font-weight: 900;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
   font-size: 2em;
   color: white;
-  text-shadow: 2px 2px black;
+  text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.7);
+  padding: 20px;
   text-decoration: none;
+}
+div.login_button > a:hover {
+  background: rgba(255, 255, 255, 0.7);
 }
 
 /** Everything **/
@@ -53,25 +78,50 @@ div.login_button > a {
   /*background: url('http://glutenwheatfree.com/wp-content/uploads/2009/12/iStock_000008634271Small.jpg');*/
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center;
+}
+
+/*MyBeers*/
+
+@media screen and (min-width: 480px) {
+  .mybeers-card, .wishlist-card {
+    max-width: 450px;
+    margin: 20px auto;
+  }  
 }
 
 /** Explore Page **/
+
+#explore-card {
+  height: auto;
+}
+
+@media screen and (min-width: 480px) {
+  #explore-card {
+    max-width: 450px;
+    margin: 20px auto;
+  }  
+}
+
+
 h3.explore_header {
-  font-family: fantasy;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
   font-size: 1.2em;
-  font-weight: 700;
   text-align: center;
   word-wrap: normal|break-word|initial|inherit;
 }
+
 .explore_back {
   background: url('http://res.freestockphotos.biz/pictures/10/10240-an-empty-brown-beer-bottle-isolated-on-a-white-background-pv.jpg');
   /*background: url('http://glutenwheatfree.com/wp-content/uploads/2009/12/iStock_000008634271Small.jpg');*/
   background-repeat: no-repeat;
-  background-size: contain;
-/*  background-size: cover;*/
+  background-size: inherit;
   background-position: bottom;
+  /*margin-top: -50px;*/
   padding-top: -1em;
-  height: 32em;
+  height: 350px;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -81,8 +131,18 @@ h3.explore_header {
   background-color: #2C3539;
 }
 .explore_back > img {
-  margin-top: 13em;
-  margin-bottom: 3em;
+  border-radius: 100%;
+  margin-top: -50px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
+}
+
+.button.button-block {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+.fbButtons {
+  padding-bottom: 10px;
 }
 
 /** star rating  **/
@@ -108,3 +168,22 @@ ul.rating {
 .rating .filled {
   color: #21568b;
 }
+
+/*Search page*/
+  .search-card {
+    padding: 30px;
+  }
+
+@media screen and (min-width: 630px) {
+
+  .search-card {
+    max-height: 500px;
+  }
+
+  .search-img {
+    max-height: 200px;
+    max-width: 200px;
+  }
+}
+
+

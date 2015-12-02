@@ -1,9 +1,13 @@
 <ion-view hide-nav-bar="true">  
   <div ng-controller="LoginCtrl">
     <ion-content has-header="true" padding="true" class="homeImg">
-      <h3 class="login_welcome">Welcome to BeerTynder</h3>
-        <div ng-hide="authData" ng-click="fbLogin()" class="social-wrap">
-          <div class="login_button"><a href="#">~ Please Enter ~</a></div>
+        <div id='title-wrapper'>
+          <h3 class="login_welcome">BeerTynder</h3>
+          <p>Beers, lovers and all others.</p>
+
+            <div ng-hide="authData" ng-click="fbLogin()" class="social-wrap">
+              <div class="login_button"><a href="#">Enter</a></div>
+            </div>
         </div>
     </ion-content>
   </div>

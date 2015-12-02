@@ -1,8 +1,8 @@
-<ion-view view-title="Beers I've Tasted" class="bar-dark">
+<ion-view view-title="My Beers" class="bar-dark">
   
    <ion-content class="background_img">
      <ion-list>
-       <ion-item class="item-remove-animate item-avatar item-icon-right card" ng-repeat="beer in userBeers" type="item-text-wrap" href="#/tab/{{userId}}/home" ng-click="seeBeerDetails(beer)"> 
+       <ion-item class="item-remove-animate item-avatar item-icon-right card mybeers-card" ng-repeat="beer in userBeers" type="item-text-wrap" href="#/tab/{{userId}}/home" ng-click="seeBeerDetails(beer)"> 
         <img src="{{beer.labels.icon || beer.labelIcon}}">
         <h2><strong>{{beer.name}}</strong></h2>
         <p>{{beer.breweries[0].name}}</p>

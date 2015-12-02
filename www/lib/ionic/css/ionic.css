@@ -7375,8 +7375,8 @@ a.button {
  * Content Padding
  * --------------------------------------------------
  */
-.padding {
-  padding: 10px; }
+/*.padding {
+  padding: 10px; }*/
 
 .padding-top, .padding-vertical {
   padding-top: 10px; }

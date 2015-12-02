@@ -14,6 +14,25 @@ h3.login_welcome {
   text-align: center;
   margin-top: 1.3em;
 }
+@media screen and (min-width: 1033px) {
+  h3.login_welcome {
+    font-size: 5em;
+    color: white;
+    -webkit-text-stroke: .5px black;
+  }
+}
+@media screen and (max-width: 432px) {
+  h3.login_welcome {
+    font-size: 2.3em;
+    margin-top: 1.3em;
+  }
+}
+@media screen and (max-width: 358px) {
+  h3.login_welcome {
+    font-size: 2.3em;
+    margin-top: .8em;
+  }
+}
 div.login_button{
   text-align: center;
   margin-top: 10em;
@@ -26,6 +45,14 @@ div.login_button > a {
   color: white;
   text-shadow: 2px 2px black;
   text-decoration: none;
+}
+
+/** Everything **/
+.background_img {
+  background: url('/img/beer_glass.jpg');
+  /*background: url('http://glutenwheatfree.com/wp-content/uploads/2009/12/iStock_000008634271Small.jpg');*/
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 /** Explore Page **/
@@ -49,6 +76,9 @@ h3.explore_header {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+.background_solid {
+  background-color: #2C3539;
 }
 .explore_back > img {
   margin-top: 13em;

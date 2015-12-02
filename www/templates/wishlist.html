@@ -1,5 +1,6 @@
+<ion-nav-bar class="bar-dark"></ion-nav-bar>
 <ion-view view-title="Wishlist">
-  <ion-content>
+  <ion-content class="background_img">
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right wishlistBeer card" ng-repeat="beer in userWishlist" type="item-text-wrap" ng-click="seeBeerDetails(beer)">
         <img src="{{beer.labels.medium || beer.labelMedium}}" width="100px" alt="beer picture here">

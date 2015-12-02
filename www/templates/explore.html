@@ -1,6 +1,6 @@
 <ion-view hide-nav-bar="true">
   <ion-content>
-    <div class="list card" on-swipe-right="saveToWishlist()" on-swipe-left="discard()">
+    <div class="list card background_solid" on-swipe-right="saveToWishlist()" on-swipe-left="discard()">
       <div class="item item-text-wrap">
         <h3 class="explore_header">{{beer.name}} by {{beer.brewery}}</h3>
         <!-- <p><strong>ABV: </strong>{{beer.abv}}</p>
@@ -19,11 +19,7 @@
         <a class="fb-like tab-item" data-href="https://www.creed.com" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true">
           Like
         </a>
-<!--         <a class="fb-share-button tab-item" 
-        data-href="http://www.your-domain.com/your-page.html" 
-        data-layout="button_count">
-          Share
-        </a> -->
+
       </div>
 
       <button class="button button-block button-positive" ng-click="saveToMyBeers()">Done drunk it already</button>

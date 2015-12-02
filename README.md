@@ -34,8 +34,10 @@ To view this application and its code, run:
 * Delete functionality for user's beers.
 * Rating beers
 
-## Contact
+## Collaborators & Contributors
 
-https://github.com/tombler/
-
+* Dan Hodges - https://github.com/DanHodges
+* Rachel Morgan - https://github.com/rachyllmorgan
+* Daniel Cossins - https://github.com/danielcossins11
+* Tom Griffey - https://github.com/tombler/
 

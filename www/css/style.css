@@ -81,10 +81,15 @@ div.login_button > a:hover {
   background-position: center;
 }
 
+.mybeers-card *, .wishlist-card *, .social-card *, .beer-detail-card *, .social-detail-card * {
+  font-family: 'Raleway', sans-serif;
+}
+
+
 /*MyBeers*/
 
 @media screen and (min-width: 480px) {
-  .mybeers-card, .wishlist-card {
+  .mybeers-card, .wishlist-card, .social-card {
     max-width: 450px;
     margin: 20px auto;
   }  
@@ -103,6 +108,17 @@ div.login_button > a:hover {
   }  
 }
 
+.arrows {
+  font-size: 48px;
+  z-index: 99;
+  padding: 5px;
+}
+
+.arrows:hover {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  cursor: pointer;
+}
 
 h3.explore_header {
   font-family: 'Raleway', sans-serif;
@@ -124,7 +140,7 @@ h3.explore_header {
   overflow: hidden;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 .background_solid {

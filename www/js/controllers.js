@@ -150,7 +150,7 @@ angular.module('starter.controllers', ['firebase'])
   function runAjaxCall() {
     $http.get(PROXY.url + "/beer/random/?key=124796ba126c92f04f87e154a597c112&format=json&hasLabels=Y&withBreweries=Y").
     then(function(data) {
-      console.log(data)
+      //console.log(data)
       $scope.beer = {
         // Main data to be displayed on explore page:
         name: data.data.data.name,

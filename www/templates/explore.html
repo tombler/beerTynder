@@ -1,5 +1,6 @@
 <ion-view hide-nav-bar="true">
   <ion-content>
+    
     <div class="list card background_solid" id="explore-card" on-swipe-right="saveToWishlist()" on-swipe-left="discard()">
       <div class="item item-text-wrap">
         <h3 class="explore_header"><strong>{{beer.name}}</strong><br>{{beer.brewery}}</h3>
@@ -8,11 +9,9 @@
       </div>
 
       <div class="item item-body explore_back">
-
-        <img src="{{beer.labelMedium}}" width="200px"> <!-- class="full-image" -->
-<!--         <p>
-          {{beer.description}}
-        </p> -->
+        <i class="icon ion-chevron-left icon-accessory arrows" ng-click="discard()" title="Discard"></i>
+        <img src="{{beer.labelMedium}}" width="200px">
+        <i class="icon ion-chevron-right icon-accessory arrows" ng-click="saveToWishlist()" title="Add to wishlist"></i>
       </div>
 
       <div class="fbButtons item tabs tabs-secondary tabs-icon-left has tabs">
@@ -25,5 +24,6 @@
       <button class="button button-block button-positive" id="explore-button" ng-click="saveToMyBeers()">Add To My Beers</button>
 
     </div>
+    
   </ion-content>
 </ion-view>

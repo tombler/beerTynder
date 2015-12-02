@@ -1,7 +1,7 @@
 angular.module('starter.controllers', ['firebase'])
 
 .constant("PROXY", {
-  url: 'http://localhost:1337/api.brewerydb.com/v2'
+  url: 'https://crossorigin.me/http://api.brewerydb.com/v2'
 })
 
 .controller('LoginCtrl', ['$scope', "$state",  "Auth", "$firebaseArray", function ($scope, $state, Auth, $firebaseArray) {
@@ -150,6 +150,7 @@ angular.module('starter.controllers', ['firebase'])
   function runAjaxCall() {
     $http.get(PROXY.url + "/beer/random/?key=124796ba126c92f04f87e154a597c112&format=json&hasLabels=Y&withBreweries=Y").
     then(function(data) {
+      console.log(data)
       $scope.beer = {
         // Main data to be displayed on explore page:
         name: data.data.data.name,

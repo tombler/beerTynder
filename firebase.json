@@ -1,6 +1,6 @@
 {
   "firebase": "beertynder",
-  "public": ".",
+  "public": "www",
   "ignore": [
     "firebase.json",
     "**/.*",

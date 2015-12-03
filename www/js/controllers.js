@@ -338,6 +338,14 @@ angular.module('starter.controllers', ['firebase'])
     $scope.isDisabled = true;
     $scope.addButtonText = "Added";
   }
+
+  $scope.removeFromWishlist = function(beer){
+    console.log("removed clicked");
+    $scope.userWishlist.$remove(beer)
+    .then(function (data) {
+      console.log("Removed beer from wishlist: ", data);
+    });
+  };
 }])
 
 .controller('SocialCtrl', ['$scope', '$firebaseArray', '$stateParams', "$ionicModal", function($scope, $firebaseArray, $stateParams, $ionicModal){

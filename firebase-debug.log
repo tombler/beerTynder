@@ -1,0 +1,17 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      c:\Program Files\nodejs\node.exe c:\Users\Daniel\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] Platform:     win32
+[debug] Node Version: v0.12.7
+[debug] Time:         Thu Dec 03 2015 00:00:14 GMT-0600 (Central Standard Time)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/beertynder/token?token=XXX 
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/beertynder/token?token=XXX 
+[debug] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'beertynder'...
+[info] 
+[info] i  deploying hosting
+[info] i  preparing www directory for upload...
+[debug] >>> HTTP REQUEST PUT https://deploy.firebase.com/firebase/beertynder/uploads/-K4aQK3IU-9s5UvlaBoQ?token=XXX&fileCount=85&message= 

@@ -185,6 +185,11 @@ ul.rating {
   color: #21568b;
 }
 
+.rmBtn{
+  float: right;
+  margin-top: -40px;
+}
+
 /*Search page*/
   .search-card {
     padding: 30px;

@@ -9,6 +9,9 @@
         <p><strong>ABV: </strong>{{beer.abv}}</p>
         <p><strong>IBUs: </strong>{{beer.ibu}}</p>
         <div beer-rating rating-value="beer.rating" max="5" on-rating-selected="saveRatingToFirebase(beer, rating)"></div>
+
+        <button class="button button-assertive" ng-click="removeFromBeerlist(beer)">Delete</button>
+
         <i class="icon ion-chevron-right icon-accessory"></i>
        </ion-item>
      </ion-list>

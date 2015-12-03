@@ -105,6 +105,14 @@ angular.module('starter.controllers', ['firebase'])
   //     })
   // }
 
+  $scope.removeFromBeerlist = function(beer){
+    console.log("removed clicked");
+    $scope.userBeers.$remove(beer)
+    .then(function (data) {
+      console.log("Removed beer from mybeers: ", data);
+    });
+  };
+
   $scope.seeBeerDetails = function (beer) {
     console.log(beer);
 

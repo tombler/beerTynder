@@ -32,23 +32,21 @@ app.controller('ExploreCtrl', ["$scope", "$stateParams", "$http", "PROXY", "$fir
         dateAdded: new Date()
       }
 
-      // **** Avoids errors when passing $scope.beer to Firebase.
       for (var key in $scope.beer) {
         if ($scope.beer[key] === undefined || $scope.beer[key] === (undefined + "%")) {
           $scope.beer[key] = "Not available.";
         }
       }
 
-      //console.log("Loaded beer: ", $scope.beer);
     }, function(data) {
-      //console.log(data)
+      
     });
   }
 
   $scope.saveToWishlist = function () {
     $http.post('/beerTynder', $scope.beer)
       .success(function(response) {
-        //console.log(response);
+        
       });
     runAjaxCall();
   }
@@ -58,25 +56,18 @@ app.controller('ExploreCtrl', ["$scope", "$stateParams", "$http", "PROXY", "$fir
   }
 
   $scope.saveToMyBeers = function () {
-    //console.log($scope.beer);
-
     var ref = new Firebase("https://beertynder.firebaseio.com/users");
     $scope.users = $firebaseArray(ref);
 
     $scope.users.$loaded()
       .then(function (usersArray) {
         for (var i = 0; i < usersArray.length; i++) {
-         // console.log(users[i])
          if (usersArray[i].uid === $scope.userId) {
-            // console.log("userId.$id", userId.$id);
-
             var ref = new Firebase('https://beertynder.firebaseio.com/users/' + usersArray[i].$id + '/myBeers/');
             $scope.myBeers = $firebaseArray(ref);
 
               $scope.myBeers.$add($scope.beer)
-              .then(function (data) {
-                console.log("Beer added to myBeers: ", data);
-              })   
+              .then(function (data) {})   
          } 
         }
       });
